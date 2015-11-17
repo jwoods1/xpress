@@ -21,7 +21,7 @@ const App = React.createClass({
 
 const About = React.createClass({
   render() {
-    return <h3>About</h3>
+    return <h3>About 123</h3>
   }
 })
 
