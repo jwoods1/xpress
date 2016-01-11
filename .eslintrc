@@ -18,6 +18,7 @@
   },
   "rules": {
     "semi" : [2, "never"],
+    "quotes": [2, "double"],
     "react-in-jsx-scope": 0
   }
 }

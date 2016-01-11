@@ -3,7 +3,7 @@ import React from 'react'
 import '../../../Libs/styles/bootstrap.css'
 import '../../../Libs/styles/bootstrap-extend.css'
 import '../../../Libs/styles/site.css'
-import '../../../Libs/global/vendor/bootstrap/bootstrap.js'
+import '../../../Libs/scripts/bootstrap.js'
 import '../../../Libs/global/vendor/breakpoints/breakpoints.js'
 import '../../../Libs/global/vendor/animsition/animsition.js'
 import '../../../Libs/global/vendor/asscroll/jquery-asScroll.js'
@@ -17,6 +17,7 @@ import '../../../Libs/global/sections/menubar.js'
 import '../../../Libs/global/v1.js'
 import '../../../Libs/fonts/web-icons/web-icons.css'
 import '../../../Libs/styles/DashboardLayout.scss'
+
 Breakpoints();
 
 import Rebase from 're-base'

@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 
 class TopNavUserInfo extends Component {
-	render() {
-		return (
-			<ul className="nav navbar-toolbar navbar-right navbar-toolbar-right">
+	render () {
+		  return (
+			<ul className='nav navbar-toolbar navbar-right navbar-toolbar-right'>
 						<li className="dropdown">
 							<a className="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" data-animation="scale-up"
 							aria-expanded="false" role="button">
@@ -241,8 +241,8 @@ class TopNavUserInfo extends Component {
 							</a>
 						</li>
 						</ul>
-		);
+		)
 	}
 }
 
-export default TopNavUserInfo;
+export default TopNavUserInfo
