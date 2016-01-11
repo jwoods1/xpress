@@ -15,7 +15,11 @@ const webpackConfig = {
   devtool: config.compiler_devtool,
   resolve: {
     root: paths.base(config.dir_client),
-    extensions: ['', '.js']
+    extensions: ['', '.js'],
+    alias: {
+            jquery: paths.base(config.dir_libs) + "/scripts/jquery.js",
+            $:  paths.base(config.dir_libs) + "/scripts/jquery.js"
+        }
   },
   module: {}
 }
@@ -56,7 +60,11 @@ webpackConfig.plugins = [
     minify: {
       collapseWhitespace: true
     }
-  })
+  }),
+  new webpack.ProvidePlugin({
+           $: "jquery",
+           jQuery: "jquery"
+       })
 ]
 
 if (config.compiler_enable_hmr) {
@@ -125,6 +133,7 @@ const cssLoader = !config.compiler_css_modules
 
 webpackConfig.module.loaders.push({
   test: /\.scss$/,
+  include: /src/,
   loaders: [
     'style',
     cssLoader,
@@ -132,6 +141,27 @@ webpackConfig.module.loaders.push({
     'sass'
   ]
 })
+webpackConfig.module.loaders.push({
+ test: /\.scss$/,
+ exclude: /src/,
+ loaders: [
+   'style',
+   'css?sourceMap',
+   'postcss',
+   'sass'
+  ]
+ })
+
+ // Don't treat global, third-party CSS as modules
+ webpackConfig.module.loaders.push({
+   test: /\.css$/,
+   exclude: /src/,
+   loaders: [
+     'style',
+     'css?sourceMap',
+     'postcss'
+   ]
+ })
 
 webpackConfig.sassLoader = {
   includePaths: paths.client('styles')
