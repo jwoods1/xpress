@@ -14,11 +14,10 @@ import '../../../Libs/global/core.js'
 import '../../../Libs/global/site.js'
 import '../../../Libs/global/sections/menu.js'
 import '../../../Libs/global/sections/menubar.js'
-import '../../../Libs/global/v1.js'
 import '../../../Libs/fonts/web-icons/web-icons.css'
 import '../../../Libs/styles/DashboardLayout.scss'
 
-Breakpoints();
+
 
 import Rebase from 're-base'
 import { History } from 'react-router'
@@ -41,6 +40,8 @@ const DashboardLayout = React.createClass({
 	},
 	componentDidMount(){
 		this.getUserStatus();
+		Breakpoints();
+		Site.run();
 	},
 	logout(){
 		this.ref = base.unauth();
