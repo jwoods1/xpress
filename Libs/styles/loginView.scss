@@ -1,0 +1,50 @@
+.login-wrapper{
+ background: url('../../src/static/loginBackground_01.jpg') no-repeat;
+ background-size: cover;
+ height:100vh;
+ margin-top:-66px;
+ .panel-default {
+   margin:auto;
+   margin-top:20px;
+   width:30%;
+   border-radius: 8px;
+ }
+ .login-logo{
+   margin:auto;
+   width:18%;
+   text-align: center;
+   margin-top:150px;
+ }
+ .welcome{
+   color: #fff;
+   margin:auto;
+   margin-top:20px;
+   width:30%;
+   text-align: center;
+
+ }
+ .welcome p{
+   font-size:14px;
+ }
+ .panel-body{
+   text-align:center;
+ }
+ .login-input{
+   border-top:none;
+   border-left:none;
+   border-right:none;
+   box-shadow: none;
+   border-radius: 0;
+ }
+ .btn-sign-in{
+   background:#434A5F;
+   color:#fff;
+   margin-bottom:15px;
+   padding:15px;
+   border-radius: 8px;
+ }
+ .forgot-button{
+   color:gray;
+   margin-top:20px;
+ }
+}
