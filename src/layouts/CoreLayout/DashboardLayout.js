@@ -38,6 +38,9 @@ const DashboardLayout = React.createClass({
 	onDrop(files){
 		console.log('Received files: ', files);
 	},
+	componentWillMount(){
+
+	},
 	componentDidMount(){
 		this.getUserStatus();
 		Breakpoints();
