@@ -69,6 +69,11 @@ const AccountsView = React.createClass({
 	render() {
 			return (
 				<div className="col-md-12">
+					<div>
+				    <div className="page-header">
+				      <h1 className="page-title">Accounts</h1>
+				    </div>
+					</div>
 					<div className="col-md-5">
 						<div className="form-group">
 							<input type="text" className="form-control" ref="email" placeholder="email" />
