@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
 import { routeReducer as router } from 'redux-simple-router'
-import counter from './modules/counter'
+import user from './modules/counter'
 
+
+console.log(user);
 export default combineReducers({
-  counter,
+  user,
   router
 })

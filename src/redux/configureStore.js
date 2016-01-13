@@ -24,6 +24,7 @@ export default function configureStore (initialState) {
   const store = createStoreWithMiddleware(createStore)(
     rootReducer, initialState
   )
+  
   if (module.hot) {
     module.hot.accept('./rootReducer', () => {
       const nextRootReducer = require('./rootReducer').default

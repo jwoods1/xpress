@@ -6,7 +6,7 @@
 
     var Breakpoints = window.Breakpoints = function() {
         Breakpoints.define.apply(Breakpoints, arguments);
-        console.log("In Breaks");
+
     };
 
     function each(obj, fn) {

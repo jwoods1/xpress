@@ -12,7 +12,7 @@ var base = Rebase.createClass('https://xpressdesign.firebaseio.com/');
 const auth = () => {return base.getAuth();}
 
 const mapStateToProps = (state) => ({
-  counter: state.counter
+  user: state.user
 })
 
 var LoginView = React.createClass({
@@ -45,7 +45,7 @@ var LoginView = React.createClass({
 						<img src="logo.png" className="img-responsive" />
 					</div>
 					<div className="welcome">
-						<p>Weclome! Please login to view your dashboard. {this.props.counter}</p>
+						<p>Weclome! Please login to view your dashboard.</p>
 					</div>
 					<div className="panel panel-default">
 						<div className="panel-body">
@@ -62,9 +62,9 @@ var LoginView = React.createClass({
 								<a href="/forgotPass" className="forgot-button"> Forgot Password? </a>
 							</form>
 							<button className='btn btn-default'
-											onClick={() => this.props.increment({"email": this.refs.email.value, "password": this.refs.password.value})}>
-								Increment
-							</button>
+										 onClick={() => this.props.loginUser(this.refs.email.value, this.refs.password.value)}>
+							 Increment
+						 </button>
 						</div>
 					</div>
 				</div>
@@ -72,6 +72,4 @@ var LoginView = React.createClass({
 		}
 });
 
-
-
-export default connect(mapStateToProps, counterActions)(LoginView);
+export default connect(mapStateToProps, counterActions)(LoginView)
