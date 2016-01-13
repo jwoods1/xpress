@@ -1,5 +1,7 @@
 import React from 'react'
 import Rebase from 're-base'
+import { connect } from 'react-redux'
+import { actions as counterActions } from '../../redux/modules/counter'
 import { History } from 'react-router'
 import ErrorMessage from '../../components/errorMessage/errorMessage'
 
@@ -7,6 +9,10 @@ import '../../../Libs/styles/loginView.scss'
 import styles from './loginView.scss'
 
 var base = Rebase.createClass('https://xpressdesign.firebaseio.com/');
+
+const mapStateToProps = (state) => ({
+  user: state.user
+})
 
 var LoginView = React.createClass({
 	mixins: [ History ],
@@ -38,6 +44,7 @@ var LoginView = React.createClass({
 						<img src="logo.png" className="img-responsive" />
 					</div>
 					<div className="welcome">
+
 						<p>Weclome! Please login to view your dashboard.</p>
 					</div>
 					<div className="panel panel-default">
@@ -53,6 +60,10 @@ var LoginView = React.createClass({
 								<button className="btn btn-sign-in col-md-12 " type="submit" >Sign In</button>
 								<a href="/forgotPass" className="forgot-button"> Forgot Password? </a>
 							</form>
+							<button className='btn btn-default'
+										 onClick={() => this.props.loginUser(this.refs.email.value, this.refs.password.value)}>
+							 Increment
+						 </button>
 						</div>
 					</div>
 				</div>
@@ -61,5 +72,4 @@ var LoginView = React.createClass({
 });
 
 
-
-export default LoginView;
+export default connect(mapStateToProps, counterActions)(LoginView)

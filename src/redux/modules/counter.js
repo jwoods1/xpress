@@ -1,37 +1,56 @@
-import { createAction, handleActions } from 'redux-actions'
+var Firebase = require('firebase');
+var Ref = new Firebase('https://xpressdesign.firebaseio.com/');
+
+
+
+
 
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const COUNTER_INCREMENT = 'COUNTER_INCREMENT'
+export const UPDATE_USER = 'UPDATE_USER'
 
 // ------------------------------------
 // Actions
 // ------------------------------------
-export const increment = createAction(COUNTER_INCREMENT, (value = 1) => value)
-
-// This is a thunk, meaning it is a function that immediately
-// returns a function for lazy evaluation. It is incredibly useful for
-// creating async actions, especially when combined with redux-thunk!
-// NOTE: This is solely for demonstration purposes. In a real application,
-// you'd probably want to dispatch an action of COUNTER_DOUBLE and let the
-// reducer take care of this logic.
-export const doubleAsync = () => {
-  return (dispatch, getState) => {
-    setTimeout(() => {
-      dispatch(increment(getState().counter))
-    }, 1000)
+function updateUser(user){
+  return{
+    type:'UPDATE_USER',
+    user : user
   }
 }
 
+export const loginUser = (user, pass) => {
+  console.log(user);
+    return Ref.authWithPassword({
+      "email": user,
+      "password": pass
+    }, function(error, authData, dispatch) {
+      if (error) {
+        console.log("Login Failed!", error);
+      } else {
+        user => dispatch(updateUser(user));
+        console.log("Authenticated successfully with payload:", authData);
+      }
+    });
+}
+
+
 export const actions = {
-  increment,
-  doubleAsync
+  loginUser,
+  updateUser
 }
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
-export default handleActions({
-  [COUNTER_INCREMENT]: (state, { payload }) => state + payload
-}, 1)
+export default function user(state = {}, action) {
+  switch (action.type) {
+    case UPDATE_USER:
+      return Object.assign({}, state, {
+        email: action.user
+      })
+    default:
+      return state
+  }
+}
