@@ -1,18 +1,15 @@
 import React from 'react'
 import Rebase from 're-base'
 import { connect } from 'react-redux'
-import { actions as counterActions } from '../../redux/modules/counter'
+import { actions as counterActions } from '../../redux/modules/login'
 import { History } from 'react-router'
 import ErrorMessage from '../../components/errorMessage/errorMessage'
 
 import '../../../Libs/styles/loginView.scss'
 import styles from './loginView.scss'
 
-var base = Rebase.createClass('https://xpressdesign.firebaseio.com/');
-const auth = () => {return base.getAuth();}
-
 const mapStateToProps = (state) => ({
-  user: state.user
+  auth: state.auth
 })
 
 var LoginView = React.createClass({
@@ -21,21 +18,16 @@ var LoginView = React.createClass({
 		return {message:'',
 				};
 	},
-	authHandler(error, authData){
-		if (error) {
-			this.setState({
-				message:"Incorrect password or username"
-			})
-			console.log(this.state.message);
-		} else {
-			this.history.pushState(null, '/dashboard')
-		}
-	},
+
+  loginRoute(){
+    console.log("hey");
+
+  },
 	userLogin(e){
 		e.preventDefault();
-
-		let login = {"email": this.refs.email.value, "password": this.refs.password.value}
-		return login
+		this.props.authUser(this.refs.email.value, this.refs.password.value)
+    this.props.pushPath('/dashboard')
+    console.log(this.props.auth.auth);
 	},
 
 	render() {
@@ -49,6 +41,7 @@ var LoginView = React.createClass({
 					</div>
 					<div className="panel panel-default">
 						<div className="panel-body">
+
 						<ErrorMessage message={this.state.message} />
 							<form onSubmit={this.userLogin}>
 								<div className="form-group">
@@ -58,18 +51,12 @@ var LoginView = React.createClass({
 									<input className="form-control login-input" type="password" ref="password" placeholder="password" />
 								</div>
 								<button className="btn btn-sign-in col-md-12 " type="submit" >Sign In</button>
-
 								<a href="/forgotPass" className="forgot-button"> Forgot Password? </a>
 							</form>
-							<button className='btn btn-default'
-										 onClick={() => this.props.loginUser(this.refs.email.value, this.refs.password.value)}>
-							 Increment
-						 </button>
 						</div>
 					</div>
 				</div>
 			)
 		}
 });
-
 export default connect(mapStateToProps, counterActions)(LoginView)

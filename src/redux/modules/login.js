@@ -1,38 +1,95 @@
-import { createAction, handleActions } from 'redux-actions'
+import {dispatch} from 'redux'
+import {Ref} from '../utils/firebaseUtil'
+import { pushPath } from 'redux-simple-router'
+
+
+
 
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const LOG_IN = 'LOG_IN'
+export const GET_USER = 'GET_USER'
+export const LOGIN_USER = 'LOGIN_USER'
+export const LOGIN_ERROR = 'LOGIN_ERROR'
+
 
 // ------------------------------------
 // Actions
 // ------------------------------------
-export const login = createAction(LOG_IN, ({value = 1}) => value)
-
-// This is a thunk, meaning it is a function that immediately
-// returns a function for lazy evaluation. It is incredibly useful for
-// creating async actions, especially when combined with redux-thunk!
-// NOTE: This is solely for demonstration purposes. In a real application,
-// you'd probably want to dispatch an action of COUNTER_DOUBLE and let the
-// reducer take care of this logic.
-console.log(login());
-export const doubleAsync = () => {
-  return (dispatch, getState) => {
-    setTimeout(() => {
-      dispatch(increment(getState().counter))
-    }, 1000)
+function loginUser(user, auth, error){
+  return{
+    type:'LOGIN_USER',
+    user : user,
+    auth: auth,
+    error: error
   }
 }
 
-export const actions = {
-  increment,
-  doubleAsync
+function getUser(user){
+  return{
+    type:'GET_USER',
+    user : user
+  }
+}
+function loginError(error){
+  return{
+    type:'LOGIN_ERROR',
+    error
+  }
 }
 
+function authUser(user, pass){
+    return function (dispatch) {
+      return Ref.authWithPassword({
+       "email": user,
+       "password": pass
+     }, function(error, authData) {
+       if (error) {
+         return  dispatch({
+               type: 'LOGIN_ERROR',
+               error: "Incorrect password or username"
+           })
+       } else {
+          return  dispatch({
+                type: 'LOGIN_USER',
+                user: authData,
+                auth: true,
+                error
+            })
+       }
+     });
+    }
+}
+
+export const actions = {
+  loginUser,
+  getUser,
+  authUser,
+  loginError,
+  pushPath
+}
 // ------------------------------------
 // Reducer
 // ------------------------------------
-export default handleActions({
-  [COUNTER_INCREMENT]: (state, { payload }) => state + payload
-}, 1)
+
+export default function user(state = {}, action) {
+  switch (action.type) {
+
+    case LOGIN_USER:
+      return Object.assign({}, state, {
+        user: action.user,
+        auth: action.auth,
+        error: action.error
+      })
+    case GET_USER:
+      return Object.assign({}, state, {
+        user: action.user
+      })
+      case LOGIN_ERROR:
+        return Object.assign({}, state, {
+          error: action.error
+        })
+    default:
+      return state
+  }
+}
