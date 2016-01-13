@@ -33,3 +33,5 @@ export default function configureStore (initialState) {
   }
   return store
 }
+
+console.log(configureStore);

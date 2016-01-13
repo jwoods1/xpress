@@ -1,19 +1,14 @@
 import { createAction, handleActions } from 'redux-actions'
-import Rebase from 're-base'
-const base = Rebase.createClass('https://xpressdesign.firebaseio.com/');
+
 // ------------------------------------
 // Constants
 // ------------------------------------
-const auth = () => {return base.getAuth();}
-export const COUNTER_INCREMENT = 'COUNTER_INCREMENT'
-//this.ref = base.authWithPassword({
-//		email    : this.refs.email.value,
-//	password : this.refs.password.value
-//	}, this.authHandler);
+export const LOG_IN = 'LOG_IN'
+
 // ------------------------------------
 // Actions
 // ------------------------------------
-export const increment = createAction(COUNTER_INCREMENT, (payload) => payload)
+export const login = createAction(LOG_IN, ({value = 1}) => value)
 
 // This is a thunk, meaning it is a function that immediately
 // returns a function for lazy evaluation. It is incredibly useful for
@@ -21,6 +16,7 @@ export const increment = createAction(COUNTER_INCREMENT, (payload) => payload)
 // NOTE: This is solely for demonstration purposes. In a real application,
 // you'd probably want to dispatch an action of COUNTER_DOUBLE and let the
 // reducer take care of this logic.
+console.log(login());
 export const doubleAsync = () => {
   return (dispatch, getState) => {
     setTimeout(() => {
@@ -28,14 +24,15 @@ export const doubleAsync = () => {
     }, 1000)
   }
 }
+
 export const actions = {
   increment,
   doubleAsync
 }
-var it = [];
+
 // ------------------------------------
 // Reducer
 // ------------------------------------
 export default handleActions({
-  [COUNTER_INCREMENT]: (state, { payload }) => ({state + payload})
+  [COUNTER_INCREMENT]: (state, { payload }) => state + payload
 }, 1)

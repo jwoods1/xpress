@@ -5,7 +5,7 @@ export default function createDevToolsWindow (store) {
   const win = window.open(
     null,
     'redux-devtools', // give it a name so it reuses the same window
-    `width=400,height=${window.outerHeight},menubar=no,location=no,resizable=yes,scrollbars=no,status=no`
+    `width=200,height=${window.outerHeight},menubar=no,location=no,resizable=yes,scrollbars=no,status=no`
   )
 
   // reload in case it's reusing the same window with the old content

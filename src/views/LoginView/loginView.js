@@ -1,5 +1,7 @@
 import React from 'react'
 import Rebase from 're-base'
+import { connect } from 'react-redux'
+import { actions as counterActions } from '../../redux/modules/counter'
 import { History } from 'react-router'
 import ErrorMessage from '../../components/errorMessage/errorMessage'
 
@@ -7,6 +9,11 @@ import '../../../Libs/styles/loginView.scss'
 import styles from './loginView.scss'
 
 var base = Rebase.createClass('https://xpressdesign.firebaseio.com/');
+const auth = () => {return base.getAuth();}
+
+const mapStateToProps = (state) => ({
+  counter: state.counter
+})
 
 var LoginView = React.createClass({
 	mixins: [ History ],
@@ -26,11 +33,11 @@ var LoginView = React.createClass({
 	},
 	userLogin(e){
 		e.preventDefault();
-		this.ref = base.authWithPassword({
-			email    : this.refs.email.value,
-			password : this.refs.password.value
-			}, this.authHandler);
+
+		let login = {"email": this.refs.email.value, "password": this.refs.password.value}
+		return login
 	},
+
 	render() {
 			return (
 				<div className='row login-wrapper'>
@@ -38,7 +45,7 @@ var LoginView = React.createClass({
 						<img src="logo.png" className="img-responsive" />
 					</div>
 					<div className="welcome">
-						<p>Weclome! Please login to view your dashboard.</p>
+						<p>Weclome! Please login to view your dashboard. {this.props.counter}</p>
 					</div>
 					<div className="panel panel-default">
 						<div className="panel-body">
@@ -51,8 +58,13 @@ var LoginView = React.createClass({
 									<input className="form-control login-input" type="password" ref="password" placeholder="password" />
 								</div>
 								<button className="btn btn-sign-in col-md-12 " type="submit" >Sign In</button>
+
 								<a href="/forgotPass" className="forgot-button"> Forgot Password? </a>
 							</form>
+							<button className='btn btn-default'
+											onClick={() => this.props.increment({"email": this.refs.email.value, "password": this.refs.password.value})}>
+								Increment
+							</button>
 						</div>
 					</div>
 				</div>
@@ -62,4 +74,4 @@ var LoginView = React.createClass({
 
 
 
-export default LoginView;
+export default connect(mapStateToProps, counterActions)(LoginView);
