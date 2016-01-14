@@ -1,7 +1,7 @@
 import React from 'react'
 import Rebase from 're-base'
 import { History } from 'react-router'
-
+import UserList from 'components/Auth/UserList'
 var base = Rebase.createClass('https://xpressdesign.firebaseio.com/');
 const AccountsView = React.createClass({
 	mixins: [ History ],
@@ -17,7 +17,6 @@ const AccountsView = React.createClass({
 	componentDidMount(){
 		this.getRoles()
 		this.getUsers();
-
 	},
 	componentWillUnmount(){
 		base.removeBinding(this.userRef);
@@ -27,17 +26,23 @@ const AccountsView = React.createClass({
 				this.refs.organization.value = '';
 				this.refs.email.value = '';
 				this.refs.password.value = '';
+
+				console.log(this.state.users);
+
+	},
+	removeUser(key){
+	 console.log(key);
 	},
 	userHandler(error, userData){
-		console.log(userData.uid)
-
 		let location = 'users/'+userData.uid;
 		this.createUser = base.post(location,{
 			data: {
 				name:this.refs.name.value,
-				organization: this.refs.organization.value
+				organization: this.refs.organization.value,
+				role: this.refs.role.value
 			}
 		});
+
 	},
 	getRoles(){
 		this.users = base.fetch('userRoles',{
@@ -56,15 +61,16 @@ const AccountsView = React.createClass({
 			state: 'users',
 			asArray: true
 		});
+
 	},
-	createUser(){
+	createUserAccount(){
 		this.ref = base.createUser({
 		email: this.refs.email.value,
 		password: this.refs.password.value
 		}, this.userHandler);
 	},
 	roleOptions(item, index) {
-		return <option  key={index }>{item}</option>;
+		return <option  key={index } >{item}</option>;
 	},
 	render() {
 			return (
@@ -87,18 +93,17 @@ const AccountsView = React.createClass({
 						<div className="form-group">
 							<input type="text" className="form-control" ref="organization" placeholder="organization" />
 						</div>
-						<select className="form-control">
+						<select className="form-control" ref="role">
 							{this.state.roles.map(this.roleOptions)}
 						</select>
 						<br />
-						<button className="btn btn-success" onClick={this.createUser}>Create User </button>
+						<button className="btn btn-success" onClick={this.createUserAccount}>Create User </button>
+						<button className="btn" onClick={this.clearFields}>Clear</button>
 					</div>
 					<div className="col-md-6 col-md-offset-1">
 						<ul className="list-group">
 							{this.state.users.map((item, index) => {
-								return <li className="list-group-item" key={index} >
-									{item.name}
-								</li>;
+								return <UserList org={item.organization} key={index} name={item.name} role={item.role} remove={this.removeUser} / >
 							})}
 						</ul>
 					</div>

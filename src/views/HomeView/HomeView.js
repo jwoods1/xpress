@@ -31,8 +31,7 @@ export class HomeView extends React.Component {
      window.removeEventListener('scroll', this.handleScroll);
   }
   handleScroll(e){
-    let pos = e.srcElement.body.scrollTop;
-    console.log(e.srcElement.body.scrollTop);
+    let pos = window.pageYOffset;
     if (pos > 100){
       this.setState({
         navColor:bgBlack
