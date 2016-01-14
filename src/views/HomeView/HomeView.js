@@ -172,16 +172,74 @@ export class HomeView extends React.Component {
 
                  </div>
              </section>
-          <section id="portfolio">
-          <div className="container">
-          <div className="row">
-              <div className="col-lg-12 text-center">
-                  <h2 className="section-heading">Our Portfolio</h2>
-                  <h3 className="section-subheading">Check out our latest work in UI/UX design, mobile app development, wearable technology, website design and development, Web app development, and brand strategy.</h3>
-              </div>
-          </div>
-          </div>
-          </section>
+             <section id="portfolio">
+               <div className="container">
+               <div className="row">
+                   <div className="col-lg-12 text-center">
+                       <h2 className="section-heading">Our Portfolio</h2>
+                       <h3 className="section-subheading">Check out our latest work in UI/UX design, mobile app development, wearable technology, website design and development, Web app development, and brand strategy.</h3>
+                   </div>
+               </div>
+               <div className="row">
+                   <div className="col-md-4 portfolio-item">
+                       <a href="#">
+                           <img className="img-responsive" src="http://placehold.it/700x400" alt=""/>
+                       </a>
+                       <h3>
+                           <a href="#">Project Name</a>
+                       </h3>
+                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+                   </div>
+                   <div className="col-md-4 portfolio-item">
+                       <a href="#">
+                           <img className="img-responsive" src="http://placehold.it/700x400" alt=""/>
+                       </a>
+                       <h3>
+                           <a href="#">Project Name</a>
+                       </h3>
+                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+                   </div>
+                   <div className="col-md-4 portfolio-item">
+                       <a href="#">
+                           <img className="img-responsive" src="http://placehold.it/700x400" alt=""/>
+                       </a>
+                       <h3>
+                           <a href="#">Project Name</a>
+                       </h3>
+                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+                   </div>
+               </div>
+               <div className="row">
+                   <div className="col-md-4 portfolio-item">
+                       <a href="#">
+                           <img className="img-responsive" src="http://placehold.it/700x400" alt=""/>
+                       </a>
+                       <h3>
+                           <a href="#">Project Name</a>
+                       </h3>
+                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+                   </div>
+                   <div className="col-md-4 portfolio-item">
+                       <a href="#">
+                           <img className="img-responsive" src="http://placehold.it/700x400" alt=""/>
+                       </a>
+                       <h3>
+                           <a href="#">Project Name</a>
+                       </h3>
+                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+                   </div>
+                   <div className="col-md-4 portfolio-item">
+                       <a href="#">
+                           <img className="img-responsive" src="http://placehold.it/700x400" alt=""/>
+                       </a>
+                       <h3>
+                           <a href="#">Project Name</a>
+                       </h3>
+                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+                   </div>
+               </div>
+             </div>
+         </section>
          <section id="contact">
          </section>
       </div>
