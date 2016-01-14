@@ -642,6 +642,17 @@ body {
 	background: transparent;
     border:none;
 }
+#contact{
+  background: linear-gradient(
+              rgba(97, 97, 97, 0.35),
+              rgba(97, 97, 97, 0.35)
+            ),
+              url("../../src/static/contactform.jpg") no-repeat;
+  background-size: cover;
+  textarea{
+    width:100%;
+  }
+}
 
 .top-content{
 	margin-top: 60px;

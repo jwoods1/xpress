@@ -241,6 +241,32 @@ export class HomeView extends React.Component {
              </div>
          </section>
          <section id="contact">
+           <div className="row">
+             <div className="col-md-6 col-md-offset-3 text-center">
+               <h1 className="text-primary">Get in touch!</h1>
+               <form method="post" role="form">
+                 <div className="form-group">
+                   <label className="sr-only" htmlFor="inputName">Name</label>
+                   <input type="text" className="form-control" id="inputName" name="name" placeholder="Name"/>
+                 </div>
+                 <div className="form-group">
+                   <label className="sr-only" htmlFor="inputEmail">Email</label>
+                   <input type="email" className="form-control" id="inputEmail" name="email" placeholder="Email"/>
+                 </div>
+                 <div className="form-group">
+                   <label className="sr-only" htmlFor="subject">Project Theme</label>
+                   <input type="text" className="form-control" id="subject" name="subject"
+                   placeholder="Tell us about your project"/>
+                 </div>
+                 <div className="form-group">
+                   <label className="sr-only" htmlFor="subject">Project Details</label>
+                   <textarea id="details" name="detail" placeholder="Tell us about your next big idea" className="form-control" rows="5"></textarea>
+                 </div>
+                 <button type="submit" className="btn btn-success btn-block">Submit</button>
+               </form>
+             </div>
+           </div>
+
          </section>
       </div>
     )

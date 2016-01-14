@@ -45,7 +45,7 @@ const TopNav = React.createClass({
 							</a>
 						</li>
 						</ul>
-						<TopNavUserInfo user={this.props.user} logout={this.props.logout}/>
+						<TopNavUserInfo avatar="http://lorempixel.com/50/50/" logout={this.props.logout}/>
 					</div>
 					<div className="collapse navbar-search-overlap" id="site-navbar-search">
 						<form role="search">
