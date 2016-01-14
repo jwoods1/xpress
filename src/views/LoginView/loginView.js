@@ -1,35 +1,44 @@
-import React from 'react'
-import Rebase from 're-base'
+import React, {PropTypes} from 'react'
 import { connect } from 'react-redux'
-import { actions as counterActions } from '../../redux/modules/login'
-import { History } from 'react-router'
+import { actions as loginActions } from '../../redux/modules/login'
 import ErrorMessage from '../../components/errorMessage/errorMessage'
 
 import '../../../Libs/styles/loginView.scss'
 import styles from './loginView.scss'
 
 const mapStateToProps = (state) => ({
-  auth: state.auth
+  authError: state.authInfo.error,
+	authorized: state.authInfo.auth,
+	user: state.authInfo.user
+
 })
 
-var LoginView = React.createClass({
-	mixins: [ History ],
-	getInitialState(){
-		return {message:'',
-				};
-	},
+export class LoginView extends React.Component {
+		static propTypes = {
+			authError: PropTypes.string,
+			authorized: PropTypes.bool.isRequired,
+			user: PropTypes.object
+		};
+	componentWillReceiveProps(nextProps){
 
-  loginRoute(){
-    console.log("hey");
-
-  },
+		if(nextProps.authorized){
+			console.log(nextProps.authorized);
+			nextProps.pushPath('/dashboard')
+		}
+	}
+	authorize(){
+		if(this.props.authorized){
+			console.log(this.props.user);
+		}else{
+			console.log(this.props.authorized);
+		}
+  }
 	userLogin(e){
 		e.preventDefault();
 		this.props.authUser(this.refs.email.value, this.refs.password.value)
-    this.props.pushPath('/dashboard')
-    console.log(this.props.auth.auth);
-	},
 
+
+	}
 	render() {
 			return (
 				<div className='row login-wrapper'>
@@ -37,13 +46,13 @@ var LoginView = React.createClass({
 						<img src="logo.png" className="img-responsive" />
 					</div>
 					<div className="welcome">
-						<p>Weclome! Please login to view your dashboard.</p>
+						<p>Weclome! Please login to view your dashboard. {this.props.user.uid}</p>
 					</div>
 					<div className="panel panel-default">
 						<div className="panel-body">
 
-						<ErrorMessage message={this.state.message} />
-							<form onSubmit={this.userLogin}>
+						<ErrorMessage message={this.props.authError} />
+							<form onSubmit={this.userLogin.bind(this)}>
 								<div className="form-group">
 									<input className="form-control login-input" type="text"  ref="email" placeholder="Email" />
 								</div>
@@ -58,5 +67,5 @@ var LoginView = React.createClass({
 				</div>
 			)
 		}
-});
-export default connect(mapStateToProps, counterActions)(LoginView)
+};
+export default connect(mapStateToProps, loginActions)(LoginView)

@@ -141,13 +141,13 @@ export class HomeView extends React.Component {
                          <div className="col-md-6">
                          <h4 className="service-heading">WEBSITE DESIGN</h4>
                             <div className="progress">
-                              <div className="progress-bar progress-bar-success" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" >
+                              <div className="progress-bar progress-bar-success prog-90" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" >
                                 <span className="sr-only">90%</span>
                               </div>
                             </div>
                             <h4 className="service-heading">HTML/CSS</h4>
                             <div className="progress">
-                              <div className="progress-bar progress-bar-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" >
+                              <div className="progress-bar progress-bar-info prog-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" >
                                 <span className="sr-only">75%</span>
                               </div>
                             </div>
@@ -156,13 +156,13 @@ export class HomeView extends React.Component {
                          <div className="col-md-6">
                          <h4 className="service-heading">MOBILE / RESPONSIVE</h4>
                          <div className="progress">
-                           <div className="progress-bar progress-bar-success" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" >
+                           <div className="progress-bar progress-bar-success prog-85" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" >
                              <span className="sr-only">85%</span>
                            </div>
                          </div>
                          <h4 className="service-heading">UI / UX DESIGN</h4>
                          <div className="progress">
-                           <div className="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" >
+                           <div className="progress-bar progress-bar-info prog-80" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" >
                              <span className="sr-only">80%</span>
                            </div>
                          </div>

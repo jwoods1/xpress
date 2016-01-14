@@ -71,10 +71,13 @@ export const actions = {
 // ------------------------------------
 // Reducer
 // ------------------------------------
-
-export default function user(state = {}, action) {
+ export const initialStat = {
+   user: {},
+   auth: false,
+   error: null
+ }
+export default function user(state = initialStat, action) {
   switch (action.type) {
-
     case LOGIN_USER:
       return Object.assign({}, state, {
         user: action.user,
