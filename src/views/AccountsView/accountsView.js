@@ -57,9 +57,11 @@ const AccountsView = React.createClass({
 		}, this.userHandler);
 	},
 	removeUser(key){
+		alert("This will remove a user "+ key.name + ". Still a work in progress");
 	 console.log(key);
 	},
 	editUser(key){
+		alert("This will edit a user "+ key.name + ". Still a work in progress");
 		console.log(key);
 	},
 	userHandler(error, userData){
@@ -81,7 +83,7 @@ const AccountsView = React.createClass({
 				<div className="col-md-12">
 					<div>
 				    <div className="page-header">
-				      <h1 className="page-title">Accounts</h1>
+				      <h1 className="page-title">Create Accounts</h1>
 				    </div>
 					</div>
 					<div className="col-md-5">
@@ -105,11 +107,33 @@ const AccountsView = React.createClass({
 						<button className="btn" onClick={this.clearFields}>Clear</button>
 					</div>
 					<div className="col-md-6 col-md-offset-1">
-						<ul className="list-group">
-							{this.state.users.map((item, index) => {
-								return <UserList org={item.organization} key={index} name={item.name} role={item.role} edit={this.editUser} remove={this.removeUser} id={item} / >
-							})}
-						</ul>
+						<h2>User Accounts</h2>
+						<table className="table">
+							<thead>
+								<tr>
+									<th>
+										Name
+									</th>
+									<th>
+										Organization
+									</th>
+									<th>
+									Role
+									</th>
+									<th>
+										Edit
+									</th>
+									<th>
+										Delete
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								{this.state.users.map((item, index) => {
+									return <UserList org={item.organization} key={index} name={item.name} role={item.role} edit={this.editUser} remove={this.removeUser} id={item} / >
+								})}
+							</tbody>
+						</table>
 					</div>
 				</div>
 			)

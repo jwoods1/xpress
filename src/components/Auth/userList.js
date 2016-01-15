@@ -12,13 +12,13 @@ class UserList extends Component {
   }
   render() {
     return(
-      <li className="list-group-item">
-      <span>{this.props.name} </span>
-        <span>{this.props.org} </span>
-          <span>{this.props.role} </span>
-            <span className="badge" onClick={this.editEvent.bind(this)} >Edit</span>
-            <span className="badge" onClick={this.removeEvent.bind(this)} >Remove</span>
-      </li>
+      <tr>
+      <td>{this.props.name} </td>
+      <td>{this.props.org} </td>
+      <td>{this.props.role} </td>
+      <td className="text-warning" onClick={this.editEvent.bind(this)} >Edit</td>
+      <td className="text-danger" onClick={this.removeEvent.bind(this)} >Remove</td>
+      </tr>
     )
   }
 }
