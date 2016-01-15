@@ -14,7 +14,8 @@ const OverView = React.createClass({
         <div className="col-md-3">
           <div className="widget widget-shadow text-center">
             <div className="widget-header">
-              <ProfileWidget avatar="http://placehold.it/150x150" job="Developer / Boss" userName="Jason Woods" bio="Super cool guy, that likes to code."/>
+							<br/>
+              <ProfileWidget avatar="http://files.parsetfss.com/fd04cac6-ed59-4388-88cb-2dfaa9fa4ab6/tfss-9e750919-9d66-498a-abcb-e2dbe44a88b6-me.jpg" job="Developer / Boss" userName="Jason Woods" bio="Super cool guy, that likes to code."/>
             </div>
           </div>
         </div>
@@ -29,7 +30,7 @@ const OverView = React.createClass({
               <div className="tab-content">
                 <div className="tab-pane active animation-slide-left" id="activities" role="tabpanel">
                   <ul className="list-group">
-          					<DashboardItem avatar="http://placehold.it/150x150" status="Updated Project 1234" author="Jwoo" brief="Updated project to display cool stuff."/ >
+          					<DashboardItem avatar="http://files.parsetfss.com/fd04cac6-ed59-4388-88cb-2dfaa9fa4ab6/tfss-9e750919-9d66-498a-abcb-e2dbe44a88b6-me.jpg" status="Updated Project 1234" author="Jwoo" brief="Updated project to display cool stuff."/ >
                   </ul>
                   <a className="btn btn-block btn-default profile-readMore" href="javascript:void(0)"
                   role="button">Show more</a>

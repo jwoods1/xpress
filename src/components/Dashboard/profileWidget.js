@@ -6,7 +6,7 @@ class ProfileWidget extends Component {
     return(
       <div className="widget-header-content">
         <a className="avatar avatar-lg" href="javascript:void(0)">
-          <img src={this.props.avatar} alt={this.props.userName}/>
+          <img className="img-responsive" src={this.props.avatar} alt={this.props.userName}/>
         </a>
         <h4 className="profile-user">{this.props.userName}</h4>
         <p className="profile-job">{this.props.job}</p>
