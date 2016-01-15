@@ -182,7 +182,7 @@ export class HomeView extends React.Component {
                <div className="row">
                    <div className="col-md-4 portfolio-item">
                        <a href="#">
-                           <img className="img-responsive" src="http://placehold.it/700x400" alt=""/>
+                           <img className="img-responsive" src="arkansashearing.png" alt=""/>
                        </a>
                        <h3>
                            <a href="#">Project Name</a>
@@ -191,7 +191,7 @@ export class HomeView extends React.Component {
                    </div>
                    <div className="col-md-4 portfolio-item">
                        <a href="#">
-                           <img className="img-responsive" src="http://placehold.it/700x400" alt=""/>
+                           <img className="img-responsive" src="dtew-full.png" alt=""/>
                        </a>
                        <h3>
                            <a href="#">Project Name</a>
@@ -200,7 +200,7 @@ export class HomeView extends React.Component {
                    </div>
                    <div className="col-md-4 portfolio-item">
                        <a href="#">
-                           <img className="img-responsive" src="http://placehold.it/700x400" alt=""/>
+                           <img className="img-responsive" src="fellberg.png" alt=""/>
                        </a>
                        <h3>
                            <a href="#">Project Name</a>
@@ -211,7 +211,7 @@ export class HomeView extends React.Component {
                <div className="row">
                    <div className="col-md-4 portfolio-item">
                        <a href="#">
-                           <img className="img-responsive" src="http://placehold.it/700x400" alt=""/>
+                           <img className="img-responsive" src="bhome.png" alt=""/>
                        </a>
                        <h3>
                            <a href="#">Project Name</a>
@@ -220,7 +220,7 @@ export class HomeView extends React.Component {
                    </div>
                    <div className="col-md-4 portfolio-item">
                        <a href="#">
-                           <img className="img-responsive" src="http://placehold.it/700x400" alt=""/>
+                           <img className="img-responsive" src="pequoteyecenter-full.png" alt=""/>
                        </a>
                        <h3>
                            <a href="#">Project Name</a>
@@ -229,7 +229,7 @@ export class HomeView extends React.Component {
                    </div>
                    <div className="col-md-4 portfolio-item">
                        <a href="#">
-                           <img className="img-responsive" src="http://placehold.it/700x400" alt=""/>
+                           <img className="img-responsive" src="DrPage.png" alt=""/>
                        </a>
                        <h3>
                            <a href="#">Project Name</a>

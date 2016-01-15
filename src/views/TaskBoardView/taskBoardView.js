@@ -53,7 +53,7 @@ class TaskBoardView extends Component {
 			  <i className="icon wb-plus" aria-hidden="true"></i>
 			</button>
 			<div className="modal fade" id="addStageFrom" aria-hidden="true" aria-labelledby="addStageFrom"
-			role="dialog" tabindex="-1">
+			role="dialog" tabIndex="-1">
 			  <div className="modal-dialog">
 			    <div className="modal-content">
 			      <div className="modal-header">

@@ -4,7 +4,12 @@ import Image from '../../components/images/image'
 
 var Parse  = require('parse');
 Parse.initialize("ioE7VoxkOqu75bhOxg7NdDnk2mF8NW9CVVfZ42cy", "JEqfGJvRjQgO9CZYjONtdFACkXHDeEtSpK1lm20o");
-
+const style = {
+	"height": 600
+};
+const margin = {
+	"marginLeft": 30
+};
 const DocumentsView = React.createClass ({
 	getInitialState(){
 		return(
@@ -48,26 +53,30 @@ const DocumentsView = React.createClass ({
 					console.log(url._url);
 				});
 			})
+			alert("Images Uploaded");
+			this.setState({
+				files:[]
+			})
 	},
 	render() {
 		return (
-			<div>
+			<div style={style}>
 				<div className="page-header">
 					<h1 className="page-title">Overview</h1>
 				</div>
-				<div>
+				<div style={margin}>
 					<Dropzone onDrop={this.onDrop}>
            	<div>Try dropping some files here, or click to select files to upload.</div>
 	         </Dropzone>
 				 </div>
-				 <ul className="list-group">
+				 <ul className="list-group" style={margin}>
 					 {this.state.files.map((item, index) => {
 						return <li className="list-group-item" key={index} >
 							{item.name}
 						</li>;
 					})}
 				 </ul>
-				 <button onClick={this.upload} className="btn btn-success" >Upload Now!</button>
+				 <button style={margin} onClick={this.upload} className="btn btn-success" >Upload Now!</button>
 
 		</div>
 		);

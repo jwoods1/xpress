@@ -30,20 +30,7 @@ const AccountsView = React.createClass({
 				console.log(this.state.users);
 
 	},
-	removeUser(key){
-	 console.log(key);
-	},
-	userHandler(error, userData){
-		let location = 'users/'+userData.uid;
-		this.createUser = base.post(location,{
-			data: {
-				name:this.refs.name.value,
-				organization: this.refs.organization.value,
-				role: this.refs.role.value
-			}
-		});
 
-	},
 	getRoles(){
 		this.users = base.fetch('userRoles',{
 			context: this,
@@ -68,6 +55,23 @@ const AccountsView = React.createClass({
 		email: this.refs.email.value,
 		password: this.refs.password.value
 		}, this.userHandler);
+	},
+	removeUser(key){
+	 console.log(key);
+	},
+	editUser(key){
+		console.log(key);
+	},
+	userHandler(error, userData){
+		let location = 'users/'+userData.uid;
+		this.createUser = base.post(location,{
+			data: {
+				name:this.refs.name.value,
+				organization: this.refs.organization.value,
+				role: this.refs.role.value
+			}
+		});
+
 	},
 	roleOptions(item, index) {
 		return <option  key={index } >{item}</option>;
@@ -103,7 +107,7 @@ const AccountsView = React.createClass({
 					<div className="col-md-6 col-md-offset-1">
 						<ul className="list-group">
 							{this.state.users.map((item, index) => {
-								return <UserList org={item.organization} key={index} name={item.name} role={item.role} remove={this.removeUser} / >
+								return <UserList org={item.organization} key={index} name={item.name} role={item.role} edit={this.editUser} remove={this.removeUser} id={item} / >
 							})}
 						</ul>
 					</div>

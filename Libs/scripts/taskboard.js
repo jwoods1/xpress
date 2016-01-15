@@ -58,7 +58,7 @@
         '</div>' +
         '<div class="task-badges"></div>' +
         '<ul class="task-members">' +
-        '<li><img class="avatar avatar-sm" src="../../../../global/portraits/5.jpg"></li>' +
+        '<li><img class="avatar avatar-sm" src="http://lorempixel.com/100/100/"></li>' +
         '</div>' +
         '</li>';
     },
@@ -167,14 +167,14 @@
     },
 
     //Init Page
-    init: function() {
+/*    init: function() {
       var self = this;
       $.getJSON('../../../assets/data/taskboard.json', function(data) {
         var $wrap = $('#taskboard-stages');
         self.buildStage($wrap, data);
         self.initSortable();
       });
-    },
+    },*/
 
     buildStage: function($wrap, data) {
       if (data.length === 0) return;
@@ -558,27 +558,27 @@
       var members = [{
         id: 'uid_1',
         name: 'Herman Beck',
-        img: '../../../../global/portraits/1.jpg'
+        img: 'http://lorempixel.com/100/100/'
       }, {
         id: 'uid_2',
         name: 'Mary Adams',
-        img: '../../../../global/portraits/2.jpg'
+        img: 'http://lorempixel.com/100/100/'
       }, {
         id: 'uid_3',
         name: 'Caleb Richards',
-        img: '../../../../global/portraits/3.jpg'
+        img: 'http://lorempixel.com/100/100/'
       }, {
         id: 'uid_4',
         name: 'June Lane',
-        img: '../../../../global/portraits/4.jpg'
+        img: 'http://lorempixel.com/100/100/'
       }, {
         id: 'uid_5',
         name: 'Edward Fletcher',
-        img: '../../../../global/portraits/5.jpg'
+        img: 'http://lorempixel.com/100/100/'
       }, {
         id: 'uid_6',
         name: 'Crystal Bates',
-        img: '../../../../global/portraits/6.jpg'
+        img: 'http://lorempixel.com/100/100/'
       }];
 
       $target.selective({
@@ -888,7 +888,7 @@
     run: function(next) {
       var self = this;
 
-      this.init();
+      //this.init();
 
       this.handleAddStage();
       this.handleDeleteStage();
