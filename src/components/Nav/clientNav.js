@@ -16,6 +16,13 @@ class ClientNav extends Component {
 					</Link>
 				</li>
 				<li className="site-menu-item has-sub">
+				<Link to={'/projects'}>
+					<i className="site-menu-icon wb-pie-chart" aria-hidden="true"></i>
+					<span className="site-menu-title">Project</span>
+					<span className="site-menu-arrow"></span>
+				</Link>
+				</li>
+				<li className="site-menu-item has-sub">
 				<Link to={'/taskboard'}>
 					<i className="site-menu-icon wb-grid-4" aria-hidden="true"></i>
 					<span className="site-menu-title">TaskBoard</span>
