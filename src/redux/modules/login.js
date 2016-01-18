@@ -1,4 +1,4 @@
-import {dispatch} from 'redux'
+//import {dispatch} from 'redux'
 import {Ref} from '../utils/firebaseUtil'
 import { pushPath } from 'redux-simple-router'
 

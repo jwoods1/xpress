@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
+import {base} from '../../redux/utils/firebaseUtil'
 import Dropzone from 'react-dropzone';
 import Image from '../../components/images/image'
+import AlertContainer from 'react-alert'
 
 var Parse  = require('parse');
 Parse.initialize("ioE7VoxkOqu75bhOxg7NdDnk2mF8NW9CVVfZ42cy", "JEqfGJvRjQgO9CZYjONtdFACkXHDeEtSpK1lm20o");
@@ -9,6 +11,13 @@ const style = {
 };
 const margin = {
 	"marginLeft": 30
+};
+const alertOptions = {
+	offset: 14,
+	position: 'bottom right',
+	theme:'dark',
+	time: 2000,
+	transitions: 'scale'
 };
 const DocumentsView = React.createClass ({
 	getInitialState(){
@@ -46,17 +55,33 @@ const DocumentsView = React.createClass ({
 	},
 	upload (){
 		let newFiles = this.state.files.slice();
-		console.log(this.state);
+		let alert = this.alertMessage;
 			this.state.files.map((item, index) => {
 				var parseFile = new Parse.File(item.name, item);
 				parseFile.save().then(function(url){
+					base.push('documents', {
+						data:{
+							project: '123123123',
+							docType:url._source.file.type,
+							docName:url._source.file.name,
+							url: url._url
+						},then(){
+							alert("Items uploaded!")
+						}
+					})
 					console.log(url._url);
 				});
 			})
-			alert("Images Uploaded");
+
 			this.setState({
 				files:[]
 			})
+	},
+	alertMessage(message){
+		msg.show(message , {
+			type:'success'
+
+		})
 	},
 	render() {
 		return (
@@ -77,7 +102,7 @@ const DocumentsView = React.createClass ({
 					})}
 				 </ul>
 				 <button style={margin} onClick={this.upload} className="btn btn-success" >Upload Now!</button>
-
+				 <AlertContainer ref={(a) => global.msg = a} {...alertOptions} />
 		</div>
 		);
 	}

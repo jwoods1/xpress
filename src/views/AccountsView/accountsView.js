@@ -1,8 +1,7 @@
 import React from 'react'
-import Rebase from 're-base'
+import {base} from '../../redux/utils/firebaseUtil'
 import { History } from 'react-router'
 import UserList from 'components/Auth/UserList'
-var base = Rebase.createClass('https://xpressdesign.firebaseio.com/');
 const AccountsView = React.createClass({
 	mixins: [ History ],
 	getInitialState(){
