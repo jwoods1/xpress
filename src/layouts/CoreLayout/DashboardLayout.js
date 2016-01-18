@@ -2,6 +2,7 @@ import React from 'react'
 
 import '../../../Libs/styles/bootstrap.css'
 import '../../../Libs/styles/bootstrap-extend.css'
+import '../../../Libs/global/vendor/sidePanel/slidePanel.css'
 import '../../../Libs/styles/site.css'
 import '../../../Libs/scripts/bootstrap.js'
 import '../../../Libs/global/vendor/breakpoints/breakpoints.js'
@@ -16,6 +17,7 @@ import '../../../Libs/global/sections/menu.js'
 import '../../../Libs/global/sections/menubar.js'
 import '../../../Libs/fonts/web-icons/web-icons.css'
 import '../../../Libs/styles/DashboardLayout.scss'
+
 
 
 

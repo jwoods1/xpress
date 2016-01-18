@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {DragSource} from 'react-dnd'
+import TaskboardCard from 'containers/Dashboard/TaskboardCard'
 import "../../../Libs/styles/taskboard.scss";
 import "../../../Libs/scripts/taskboardApp.js"; // temp
 import "../../../Libs/scripts/taskboard.js"; // temp need to xtract templates make react components
@@ -45,7 +46,9 @@ class TaskBoardView extends Component {
 			    <h1 className="page-title">TaskBoard</h1>
 			  </div>
 			  <div className="page-content">
-			    <ul className="taskboard-stages" id="taskboard-stages"></ul>
+			    <ul className="taskboard-stages" id="taskboard-stages">
+            <TaskboardCard title="Test Card" label="test1" />
+			    </ul>
 			  </div>
 			</div>
 			<button className="site-action site-floataction btn-raised btn btn-success btn-floating"

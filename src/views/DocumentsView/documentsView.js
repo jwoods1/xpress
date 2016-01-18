@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import {base} from '../../redux/utils/firebaseUtil'
+import {base, parse} from '../../redux/utils/firebaseUtil'
 import Dropzone from 'react-dropzone';
 import Image from '../../components/images/image'
 import AlertContainer from 'react-alert'
 
-var Parse  = require('parse');
-Parse.initialize("ioE7VoxkOqu75bhOxg7NdDnk2mF8NW9CVVfZ42cy", "JEqfGJvRjQgO9CZYjONtdFACkXHDeEtSpK1lm20o");
+
 const style = {
 	"height": 600
 };
@@ -56,15 +55,17 @@ const DocumentsView = React.createClass ({
 	upload (){
 		let newFiles = this.state.files.slice();
 		let alert = this.alertMessage;
+		let comment = this.refs.comment.value;
 			this.state.files.map((item, index) => {
-				var parseFile = new Parse.File(item.name, item);
+				var parseFile = new parse.File(item.name, item);
 				parseFile.save().then(function(url){
 					base.push('documents', {
 						data:{
 							project: '123123123',
 							docType:url._source.file.type,
 							docName:url._source.file.name,
-							url: url._url
+							url: url._url,
+							comments: comment
 						},then(){
 							alert("Items uploaded!")
 						}
@@ -93,6 +94,7 @@ const DocumentsView = React.createClass ({
 					<Dropzone onDrop={this.onDrop}>
            	<div>Try dropping some files here, or click to select files to upload.</div>
 	         </Dropzone>
+					 <textarea ref="comment" className="form-control" />
 				 </div>
 				 <ul className="list-group" style={margin}>
 					 {this.state.files.map((item, index) => {

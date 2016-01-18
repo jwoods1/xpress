@@ -14,6 +14,7 @@ import AccountsView from 'views/AccountsView/AccountsView'
 import DocumentsView from 'views/DocumentsView/DocumentsView'
 import TaskBoardView from 'views/TaskBoardView/TaskBoardView'
 import NotFoundView from 'views/NotFoundView/NotFoundView'
+import ProjectDetailsView from 'views/ProjectsView/projectDetailsView'
 
 export default (
   <Route component={CoreLayout}>
@@ -28,6 +29,7 @@ export default (
       <Route path='/taskboard' component={TaskBoardView} />
       <Route path='/profile' component={ProfileView} />
       <Route path='/projects' component={ProjectsView} />
+      <Route path='/projects/:projectId' component={ProjectDetailsView} />
       <Route path='/accounts' component={AccountsView} />
       <Route path='/documents' component={DocumentsView} />
     </Route>
