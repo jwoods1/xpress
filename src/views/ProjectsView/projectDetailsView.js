@@ -3,6 +3,7 @@ import {base, parse} from '../../redux/utils/firebaseUtil'
 import ProjectList from 'components/Projects/projectList'
 import Dropzone from 'react-dropzone';
 import ProjectComment from 'components/Projects/projectComment'
+import ProjectDocs from 'components/Projects/projectDocs'
 
 
 class ProjectDetailsView extends Component {
@@ -162,19 +163,11 @@ log(){
                </h3>
              </div>
              <div className="panel-body">
-               {this.state.project.docs.map((item, index) => {
-    						return <div className="panel col-xs-3">
-                  <figure className="overlay overlay-hover animation-hover">
-                    <img className="caption-figure img-responsive" src={item.url} />
-                    <figcaption className="overlay-panel overlay-background overlay-fade text-center vertical-align">
-                      <a href={item.url} className="btn btn-outline btn-default project-button">download</a>
-                    </figcaption>
-                  </figure>
-                  <div className="time pull-right">{item.docName}</div>
-                  <div className="text-truncate">{item.docType}</div>
-                </div>;
-
-    					})}
+              {
+                this.state.project.docs.map((item, index) => {
+                  return <ProjectDocs url={item.url} docType={item.docType} docName={item.docName} key={index} />
+                })
+              }
              </div>
            </div>
          </div>
