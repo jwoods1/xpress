@@ -4,6 +4,8 @@ import ProjectList from 'components/Projects/projectList'
 import Dropzone from 'react-dropzone';
 import ProjectComment from 'components/Projects/projectComment'
 import ProjectDocs from 'components/Projects/projectDocs'
+import TaskboardCard from 'containers/Dashboard/TaskboardCard'
+import "../../../Libs/styles/taskboard.scss";
 
 
 class ProjectDetailsView extends Component {
@@ -174,6 +176,20 @@ log(){
            </div>
          </div>
          <div className="tab-pane animation-slide-left" id="Taskboard" role="tabpanel">
+         <div >
+           <div className="page-header">
+             <h1 className="page-title">TaskBoard</h1>
+           </div>
+           <div className="page-content">
+             <ul className="taskboard-stages" id="taskboard-stages">
+               <TaskboardCard title="Test Card" label="test1" />
+             </ul>
+           </div>
+         </div>
+         <button className="site-action site-floataction btn-raised btn btn-success btn-floating"
+         type="button" data-toggle="modal" data-target="#addStageFrom">
+           <i className="icon wb-plus" aria-hidden="true"></i>
+         </button>
 
          </div>
        </div>
@@ -206,6 +222,30 @@ log(){
          </div>
          <div className="modal-footer text-right">
            <button onClick={this.updateProject.bind(this)} className="btn btn-primary" data-dismiss="modal" type="button">Create</button>
+           <a className="btn btn-sm btn-white" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
+         </div>
+       </div>
+     </div>
+
+   </div>
+   <div className="modal fade" id="addStageFrom" aria-hidden="true" aria-labelledby="addStageFrom"
+   role="dialog" tabIndex="-1">
+     <div className="modal-dialog">
+       <div className="modal-content">
+         <div className="modal-header">
+           <button type="button" className="close" aria-hidden="true" data-dismiss="modal">×</button>
+           <h4 className="modal-title">Create New Group</h4>
+         </div>
+         <div className="modal-body">
+           <form action="#" method="post" role="form">
+             <div className="form-group">
+               <input type="text" className="form-control" id="name" name="name" placeholder="Stage Name" />
+             </div>
+           </form>
+         </div>
+         <div className="modal-footer text-left">
+           <button id="taskboard-stage-creat" className="btn btn-primary" data-dismiss="modal"
+           type="button">Creat</button>
            <a className="btn btn-sm btn-white" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
          </div>
        </div>

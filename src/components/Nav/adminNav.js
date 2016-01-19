@@ -30,20 +30,6 @@ class SideNav extends Component {
 					<span className="site-menu-arrow"></span>
 				</Link>
 				</li>
-				<li className="site-menu-item has-sub">
-				<Link to={'/taskboard'}>
-					<i className="site-menu-icon wb-grid-4" aria-hidden="true"></i>
-					<span className="site-menu-title">TaskBoard</span>
-					<span className="site-menu-arrow"></span>
-				</Link>
-				</li>
-				<li className="site-menu-item has-sub">
-				<Link to={'/documents'}>
-					<i className="site-menu-icon wb-grid-4" aria-hidden="true"></i>
-					<span className="site-menu-title">Documents</span>
-					<span className="site-menu-arrow"></span>
-				</Link>
-				</li>
 			</ul>
 
 		);
