@@ -71,77 +71,92 @@ log(){
  }
 	render() {
 		return (
-	<div>
-		<div>
-	    <div className="page-header">
-	      <h1 className="page-title">Project {this.state.project.title}</h1>
-	    </div>
-	    <div className="page-content">
-	      <div className="projects-wrap">
-          <div className="col-md-8">
-  	        <h2>Details</h2>
-            <img className="img-responsive pull-right" src={this.state.project.mainImg} />
-            <p>{this.state.project.discription}</p>
-            <hr/>
+ <div className="col-md-12">
+   <div className="panel">
+     <div className="panel-body nav-tabs-animate">
+       <ul className="nav nav-tabs nav-tabs-line" data-plugin="nav-tabs" role="tablist">
+         <li className="active" role="presentation"><a data-toggle="tab" href="#details" aria-controls="details"
+           role="tab">Project Details </a></li>
+         <li  role="presentation"><a data-toggle="tab" href="#documents" aria-controls="documents"
+             role="tab">Project Documents</a></li>
+         <li  role="presentation"><a data-toggle="tab" href="#Taskboard" aria-controls="Taskboard"
+               role="tab">Project Taskboard</a></li>
+          </ul>
 
-            <ul>
-              <li> Date: {this.state.project.date} </li>
-              <li> Status: {this.state.project.status} </li>
-              <li> Client: {this.state.project.client} </li>
-            </ul>
-          </div>
-          <div className="col-md-4">
-              <div className="panel">
-                <div className="panel-heading">
-                  <h4>Project Todo's</h4>
+        <div className="tab-content">
+         <div className="tab-pane active animation-slide-left" id="details" role="tabpanel">
+           <div className="page-header">
+    	        <h1 className="page-title">Project {this.state.project.title}</h1>
+    	      </div>
+           <div className="col-md-8">
+             <h2>Details</h2>
+             <img className="img-responsive pull-right" src={this.state.project.mainImg} />
+             <p>{this.state.project.discription}</p>
+             <hr/>
+
+             <ul>
+               <li> Date: {this.state.project.date} </li>
+               <li> Status: {this.state.project.status} </li>
+               <li> Client: {this.state.project.client} </li>
+             </ul>
+           </div>
+           <div className="col-md-4">
+               <div className="panel">
+                 <div className="panel-heading">
+                   <h4>Project Todo's</h4>
+                 </div>
+                 <div className="panel-body">
+                   <ul>
+                     <li> Todo Item </li>
+                   </ul>
+                 </div>
+               </div>
+           </div>
+           <button className="site-action btn-raised btn btn-success btn-floating" data-target="#addProjectForm"
+          data-toggle="modal" type="button">
+            <i className="icon wb-plus" aria-hidden="true"></i>
+            </button>
+          <div className="modal fade" id="addProjectForm" aria-hidden="true" aria-labelledby="addProjectForm"
+          role="dialog" tabindex="-1">
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <button type="button" className="close" aria-hidden="true" data-dismiss="modal">×</button>
+                  <h4 className="modal-title">Create New Project</h4>
                 </div>
-                <div className="panel-body">
-                  <ul>
-                    <li> Todo Item </li>
-                  </ul>
+                <div className="modal-body">
+                  <form action="#" method="post" role="form">
+                    <div className="form-group">
+                      <label className="control-label margin-bottom-15" htmlFor="name">Project name:</label>
+                      <input type="text" className="form-control" ref="projectName" id="name" name="name" placeholder="Project name" />
+                    </div>
+                    <div className="form-group">
+                      <label className="control-label margin-bottom-15" htmlFor="name">Project description:</label>
+                      <textarea className="maxLength-textarea form-control mb-sm" ref="projectDiscription" placeholder="Project description."
+                      rows="4" maxLength="225" data-plugin="maxLength"></textarea>
+                    </div>
+                    <Dropzone onDrop={this.onDrop.bind(this)}>
+                      <div>Try dropping some files here, or click to select files to upload.</div>
+                     </Dropzone>
+                  </form>
+                </div>
+                <div className="modal-footer text-right">
+                  <button onClick={this.updateProject.bind(this)} className="btn btn-primary" data-dismiss="modal" type="button">Create</button>
+                  <a className="btn btn-sm btn-white" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
                 </div>
               </div>
+            </div>
           </div>
-	      </div>
-	    </div>
-	  </div>
-	  <button className="site-action btn-raised btn btn-success btn-floating" data-target="#addProjectForm"
-	  data-toggle="modal" type="button">
-	    <i className="icon wb-plus" aria-hidden="true"></i>
-	  </button>
+         </div>
+         <div className="tab-pane animation-slide-left" id="documents" role="tabpanel">
+           <h2>Test</h2>
+         </div>
+         <div className="tab-pane animation-slide-left" id="Taskboard" role="tabpanel">
 
-	  <div className="modal fade" id="addProjectForm" aria-hidden="true" aria-labelledby="addProjectForm"
-	  role="dialog" tabindex="-1">
-	    <div className="modal-dialog">
-	      <div className="modal-content">
-	        <div className="modal-header">
-	          <button type="button" className="close" aria-hidden="true" data-dismiss="modal">×</button>
-	          <h4 className="modal-title">Create New Project</h4>
-	        </div>
-	        <div className="modal-body">
-	          <form action="#" method="post" role="form">
-	            <div className="form-group">
-	              <label className="control-label margin-bottom-15" htmlFor="name">Project name:</label>
-	              <input type="text" className="form-control" ref="projectName" id="name" name="name" placeholder="Project name" />
-	            </div>
-	            <div className="form-group">
-	              <label className="control-label margin-bottom-15" htmlFor="name">Project description:</label>
-	              <textarea className="maxLength-textarea form-control mb-sm" ref="projectDiscription" placeholder="Project description."
-	              rows="4" maxLength="225" data-plugin="maxLength"></textarea>
-	            </div>
-              <Dropzone onDrop={this.onDrop.bind(this)}>
-                <div>Try dropping some files here, or click to select files to upload.</div>
-               </Dropzone>
-	          </form>
-	        </div>
-	        <div className="modal-footer text-right">
-	          <button onClick={this.updateProject.bind(this)} className="btn btn-primary" data-dismiss="modal" type="button">Create</button>
-	          <a className="btn btn-sm btn-white" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
-	        </div>
-	      </div>
-	    </div>
-	  </div>
-		<a href="external.html" data-slidepanel="panel">Show Panel</a>
+         </div>
+       </div>
+     </div>
+   </div>
  </div>
 		);
 	}
