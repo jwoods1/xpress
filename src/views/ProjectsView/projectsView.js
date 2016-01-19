@@ -49,6 +49,7 @@ class ProjectsView extends Component {
           status: Refs.projectStatus.value,
           date: Refs.projectDate.value,
           client: Refs.projectClient.value,
+          comments:[],
           docs:[{
             docType:url._source.file.type,
             docName:url._source.file.name,
