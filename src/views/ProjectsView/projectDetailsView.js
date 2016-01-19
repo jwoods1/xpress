@@ -10,7 +10,9 @@ class ProjectDetailsView extends Component {
   constructor(props){
     super(props);
     this.state = {
-      project:{},
+      project:{
+        docs:[]
+      },
       files:[]
     }
   }
