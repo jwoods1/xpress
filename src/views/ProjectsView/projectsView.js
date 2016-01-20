@@ -63,11 +63,11 @@ class ProjectsView extends Component {
               'tasks':[]
             }
           },
-          docs:[{
+          docs:{
             docType:url._source.file.type,
             docName:url._source.file.name,
             url: url._url
-          }]
+          }
         },
         then(){
           Refs.projectName.value = '';

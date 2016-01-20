@@ -5,9 +5,16 @@ import Dropzone from 'react-dropzone';
 import ProjectComment from 'components/Projects/projectComment'
 import ProjectDocs from 'components/Projects/projectDocs'
 import TaskBoardView from '../TaskBoardView/taskBoardView'
+import AlertContainer from 'react-alert'
 import "../../../Libs/styles/taskboard.scss";
 
-
+const alertOptions = {
+	offset: 14,
+	position: 'top right',
+	theme:'dark',
+	time: 2000,
+	transitions: 'scale'
+};
 class ProjectDetailsView extends Component {
   constructor(props){
     super(props);
@@ -27,6 +34,7 @@ class ProjectDetailsView extends Component {
       },
       files:[]
     }
+    this.addDocs = this.addDocs.bind(this);
   }
   componentDidMount(){
     let params = this.props.params.projectId.split(':');
@@ -40,6 +48,46 @@ class ProjectDetailsView extends Component {
   }
   componentWillUnmount(){
     base.removeBinding(this.ref);
+  }
+  addDocs(){
+    let params = this.props.params.projectId.split(':');
+    let projectId = params[1];
+    let query = 'projects/' + projectId + '/docs';
+    let newFiles = this.state.files.slice();
+    let message = this.alertMessage;
+    let comment = this.refs.docsComment.value;
+    console.log(comment);
+      this.state.files.map((item, index) => {
+        var parseFile = new parse.File(item.name, item);
+        parseFile.save().then(function(url){
+          base.push(query, {
+            data:{
+                docType:url._source.file.type,
+                docName:url._source.file.name,
+                url: url._url,
+                comments: comment
+
+            },then(){
+              message("Items uploaded!")
+            }
+          })
+        });
+      })
+      comment = "";
+      this.setState({
+        files:[]
+      })
+  }
+  alertMessage(message){
+    msg.show(message , {
+      type:'success'
+    })
+  }
+  mapObject(object, callback) {
+    console.log();
+    return Object.keys(object).map(function (key) {
+      return callback(key, object[key]);
+    });
   }
   onDrop(files){
 		if(files.length > 0 ){
@@ -164,15 +212,29 @@ class ProjectDetailsView extends Component {
          <div className="tab-pane animation-slide-left" id="documents" role="tabpanel">
            <div className="panel">
              <div className="panel-heading">
-               <h3 className="panel-title">Project Documents
-               </h3>
+               <h3 className="panel-title">Project Documents</h3>
+               <button type="button" className="btn btn-sm btn-icon btn-default btn-outline btn-round"
+                 data-target="#addDocs"
+                data-toggle="modal"  data-original-title="Add Documents">
+                 <i className="icon wb-upload" aria-hidden="true"></i>
+               </button>
              </div>
              <div className="panel-body">
-              {
-                this.state.project.docs.map((item, index) => {
-                  return <ProjectDocs url={item.url} docType={item.docType} docName={item.docName} key={index} />
-                })
-              }
+             {
+               this.mapObject(this.state.project.docs, function(index, item){
+                 console.log(item.docType);
+                 if(item.docType == 'image/jpeg' || item.docType == 'image/png'){
+                   return <ProjectDocs url={item.url} docType={item.docType} docName={item.docName} key={index} />
+
+                 }else if(!item.docType){
+                   return
+                 }else{
+                   return <ProjectDocs url='https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/512/document.png' docType={item.docType} docName={item.docName} key={index} />
+
+                 }
+
+               })
+             }
              </div>
            </div>
          </div>
@@ -182,8 +244,7 @@ class ProjectDetailsView extends Component {
        </div>
      </div>
    </div>
-   <div className="modal fade" id="editProjectForm" aria-hidden="true" aria-labelledby="addProjectForm"
-   role="dialog" tabindex="-1">
+   <div className="modal fade" id="editProjectForm" aria-hidden="true" aria-labelledby="addProjectForm" role="dialog" tabindex="-1">
      <div className="modal-dialog">
        <div className="modal-content">
          <div className="modal-header">
@@ -213,8 +274,36 @@ class ProjectDetailsView extends Component {
          </div>
        </div>
      </div>
-
    </div>
+   <div className="modal fade" id="addDocs" aria-hidden="true" aria-labelledby="addDocs" role="dialog" tabindex="-1">
+     <div className="modal-dialog">
+       <div className="modal-content">
+         <div className="modal-header">
+           <button type="button" className="close" aria-hidden="true" data-dismiss="modal">×</button>
+           <h4 className="modal-title">Add Documents</h4>
+         </div>
+
+         <div className="modal-body">
+           <form action="#" method="post" role="form">
+
+             <Dropzone onDrop={this.onDrop.bind(this)}>
+               <div>Try dropping some files here, or click to select files to upload.</div>
+              </Dropzone>
+              <div className="form-group">
+                <label className="control-label margin-bottom-15" htmlFor="Comment">Comment:</label>
+                <textarea className="maxLength-textarea form-control mb-sm" ref="docsComment" placeholder="Comment on document"
+                rows="2" maxLength="225" data-plugin="maxLength"></textarea>
+              </div>
+           </form>
+         </div>
+         <div className="modal-footer text-right">
+           <button onClick={this.addDocs.bind(this)} className="btn btn-primary" data-dismiss="modal" type="button">Create</button>
+           <a className="btn btn-sm btn-white" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
+         </div>
+       </div>
+     </div>
+   </div>
+    <AlertContainer ref={(a) => global.msg = a} {...alertOptions} />
  </div>
 		);
 	}
