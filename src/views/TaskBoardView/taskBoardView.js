@@ -1,9 +1,10 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react'
+import {base, parse} from '../../redux/utils/firebaseUtil'
 import {DragSource} from 'react-dnd'
 import TaskboardCard from 'containers/Dashboard/TaskboardCard'
-import "../../../Libs/styles/taskboard.scss";
-import "../../../Libs/scripts/taskboardApp.js"; // temp
-import "../../../Libs/scripts/taskboard.js"; // temp need to xtract templates make react components
+import "../../../Libs/styles/taskboard.scss"
+//import "../../../Libs/scripts/taskboardApp.js"; // temp
+//wimport "../../../Libs/scripts/taskboard.js"; // temp need to xtract templates make react components
 
 const cardSource = {
   beginDrag(props) {
@@ -38,46 +39,56 @@ class Card {
 }
 
 class TaskBoardView extends Component {
+  constructor(props){
+    super(props);
+    this.addTaskItem = this.addTaskItem.bind(this);
+    this.updateItem = this.updateItem.bind(this);
+
+  }
+componentDidMount(){
+
+}
+addTaskItem(board, task){
+  let params = this.props.projectId.split(':');
+  let projectId = params[1];
+  let query = 'projects/' + projectId +'/taskboards/' + board +'/tasks';
+  base.push(query, {
+    data:{
+      task:{
+        label:task,
+        complete:false
+      }
+    },then(){
+      console.log('updated');
+    }
+  })
+}
+updateItem(board, key, checked, label){
+  let params = this.props.projectId.split(':');
+  let projectId = params[1];
+  let query = 'projects/' + projectId +'/taskboards/' + board +'/tasks/' + key +'/task';
+  base.post(query, {
+    data:{
+      complete:checked,
+      label:label
+    },then(){
+      console.log('updated');
+    }
+  })
+}
 	render() {
 		return (
-		<div className="Taskboard app-taskboard">
-			<div >
+		  <div className="Taskboard">
 			  <div className="page-header">
 			    <h1 className="page-title">TaskBoard</h1>
 			  </div>
 			  <div className="page-content">
 			    <ul className="taskboard-stages" id="taskboard-stages">
-            <TaskboardCard title="Test Card" label="test1" />
+            <TaskboardCard key="backLog" title={this.props.boards.taskboards.Backlog.title} update={this.updateItem} tasks={this.props.boards.taskboards.Backlog.tasks} board={this.props.boards.taskboards.Backlog} addTaskItem={this.addTaskItem}/>
+            <TaskboardCard key="doingLog" title={this.props.boards.taskboards.Doing.title} update={this.updateItem} tasks={this.props.boards.taskboards.Doing.tasks} board={this.props.boards.taskboards.Doing} addTaskItem={this.addTaskItem}/>
+            <TaskboardCard key="completeLog"title={this.props.boards.taskboards.Completed.title}  update={this.updateItem} tasks={this.props.boards.taskboards.Completed.tasks} board={this.props.boards.taskboards.Completed}  addTaskItem={this.addTaskItem} />
 			    </ul>
 			  </div>
-			</div>
-			<button className="site-action site-floataction btn-raised btn btn-success btn-floating"
-			type="button" data-toggle="modal" data-target="#addStageFrom">
-			  <i className="icon wb-plus" aria-hidden="true"></i>
-			</button>
-			<div className="modal fade" id="addStageFrom" aria-hidden="true" aria-labelledby="addStageFrom"
-			role="dialog" tabIndex="-1">
-			  <div className="modal-dialog">
-			    <div className="modal-content">
-			      <div className="modal-header">
-			        <button type="button" className="close" aria-hidden="true" data-dismiss="modal">×</button>
-			        <h4 className="modal-title">Create New Group</h4>
-			      </div>
-			      <div className="modal-body">
-			        <form action="#" method="post" role="form">
-			          <div className="form-group">
-			            <input type="text" className="form-control" id="name" name="name" placeholder="Stage Name" />
-			          </div>
-			        </form>
-			      </div>
-			      <div className="modal-footer text-left">
-			        <button id="taskboard-stage-creat" className="btn btn-primary" data-dismiss="modal"
-			        type="button">Creat</button>
-			        <a className="btn btn-sm btn-white" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
-			      </div>
-			    </div>
-			  </div>
-			</div>
 			</div>
 		);
 	}

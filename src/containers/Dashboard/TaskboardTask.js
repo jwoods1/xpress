@@ -1,21 +1,43 @@
 import React, {PropTypes, Component} from 'react'
 import Task from 'components/TaskBoard/task'
 
-const tasks = [ // Need to make this dynamic
-  {'label':'Test1', 'userImg':'testimage1'},
-  {'label':'Test2', 'userImg':'testimage1'},
-  {'label':'Test3', 'userImg':'testimage1'}
-];
 class TaskBoardTask extends Component {
+  constructor(props) {
+      super(props);
+      this.state = {
+        tasks:{}
+      };
+    }
+componentWillReceiveProps(nextProps){
+  if(nextProps.tasks){
+    this.setState({
+      tasks:nextProps.tasks
+    })
+  }
+
+}
+mapObject(object, callback) {
+  console.log();
+  return Object.keys(object).map(function (key) {
+    return callback(key, object[key]);
+  });
+}
+update(item,value){
+  this.props.update(item,value);
+}
   renderTasks(){
 
   }
   render() {
+    let updateCheck = this.props.update
+    let board = this.props.board
     return(
       <ul className="list-group taskboard-list">
-        {tasks.map((item, index) => {
-          return <Task label={item.label} key={index} userImg={item.userImg}  / >
-        })}
+        {
+          this.mapObject(this.state.tasks, function(key, value){
+            return <Task label={value.task.label} item={key} complete={value.task.complete} update={updateCheck} board={board} key={key} />
+          })
+        }
       </ul>
     )
   }

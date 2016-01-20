@@ -1,10 +1,23 @@
 import React,{Component} from 'react'
 
 class Task extends Component {
+  constructor(props) {
+      super(props);
+      this.isChecked = this.isChecked.bind(this);
+    }
+  isChecked(){
+    let item = this.props.item;
+    let checked = this.refs.taskChecked.checked;
+    let board = this.props.board
+    let label = this.props.label
+    console.log(item);
+    this.props.update(board, item, checked, label)
+  }
   render() {
+
     return(
       <li className="list-group-item priority-normal" data-taskboard="slidePanel" data-url="panel.tpl">
-        <div className="checkbox-custom checkbox-primary"><input type="checkbox" name="checkbox"/>
+        <div className="checkbox-custom checkbox-primary"><input onChange={this.isChecked} checked={this.props.complete} type="checkbox" ref="taskChecked" name="checkbox"/>
           <label className="task-title">{this.props.label}</label>
         </div>
         <div className="task-badges"></div>

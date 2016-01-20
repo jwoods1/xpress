@@ -50,6 +50,19 @@ class ProjectsView extends Component {
           date: Refs.projectDate.value,
           client: Refs.projectClient.value,
           comments:[],
+          taskboards:{"Backlog":{
+            'title':'Backlog',
+            'tasks':[]
+          },
+            "Doing":{
+              'title':'Doing',
+              'tasks':[]
+            },
+            "Completed":{
+              'title':'Completed',
+              'tasks':[]
+            }
+          },
           docs:[{
             docType:url._source.file.type,
             docName:url._source.file.name,

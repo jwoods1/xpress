@@ -4,7 +4,7 @@ import ProjectList from 'components/Projects/projectList'
 import Dropzone from 'react-dropzone';
 import ProjectComment from 'components/Projects/projectComment'
 import ProjectDocs from 'components/Projects/projectDocs'
-import TaskboardCard from 'containers/Dashboard/TaskboardCard'
+import TaskBoardView from '../TaskBoardView/taskBoardView'
 import "../../../Libs/styles/taskboard.scss";
 
 
@@ -13,7 +13,17 @@ class ProjectDetailsView extends Component {
     super(props);
     this.state = {
       project:{
-        docs:[]
+        docs:[],
+        taskboards:{"Backlog":{
+          'tasks':[]
+        },
+          "Doing":{
+            'tasks':[]
+          },
+          "Completed":{
+            'tasks':[]
+          }
+        }
       },
       files:[]
     }
@@ -44,9 +54,6 @@ class ProjectDetailsView extends Component {
 			})
     }
   }
-log(){
-  console.log(this.state.project);
-}
  updateProject(){
   let Refs = this.refs
   let newFiles = this.state.files.slice();
@@ -109,7 +116,7 @@ log(){
          <div className="tab-pane active animation-slide-left" id="details" role="tabpanel">
            <div className="panel">
              <div className="panel-heading">
-               <h3 onClick={this.log.bind(this)} className="panel-title">Project Description
+               <h3 className="panel-title">Project Description
                  <span className="label label-primary">{this.state.project.status}</span>
                </h3>
              </div>
@@ -121,12 +128,6 @@ log(){
                <dd>{this.state.project.date}</dd><br/>
                <dt>Client:</dt>
                <dd>{this.state.project.client}</dd><br/>
-               <dt>Team:</dt>
-               <dd>
-                <img className="avatar avatar-sm" src="../../../global/portraits/7.jpg"/>
-                <img className="avatar avatar-sm" src="../../../global/portraits/6.jpg"/>
-                <img className="avatar avatar-sm" src="../../../global/portraits/8.jpg"/>
-                </dd><br/>
                <dt>Last Updated:</dt>
                <dd>1/26/16</dd>
              </dl>
@@ -163,7 +164,7 @@ log(){
          <div className="tab-pane animation-slide-left" id="documents" role="tabpanel">
            <div className="panel">
              <div className="panel-heading">
-               <h3 onClick={this.log.bind(this)} className="panel-title">Project Documents
+               <h3 className="panel-title">Project Documents
                </h3>
              </div>
              <div className="panel-body">
@@ -176,21 +177,7 @@ log(){
            </div>
          </div>
          <div className="tab-pane animation-slide-left" id="Taskboard" role="tabpanel">
-         <div >
-           <div className="page-header">
-             <h1 className="page-title">TaskBoard</h1>
-           </div>
-           <div className="page-content">
-             <ul className="taskboard-stages" id="taskboard-stages">
-               <TaskboardCard title="Test Card" label="test1" />
-             </ul>
-           </div>
-         </div>
-         <button className="site-action site-floataction btn-raised btn btn-success btn-floating"
-         type="button" data-toggle="modal" data-target="#addStageFrom">
-           <i className="icon wb-plus" aria-hidden="true"></i>
-         </button>
-
+           <TaskBoardView boards={this.state.project} projectId={this.props.params.projectId}/ >
          </div>
        </div>
      </div>
@@ -227,29 +214,6 @@ log(){
        </div>
      </div>
 
-   </div>
-   <div className="modal fade" id="addStageFrom" aria-hidden="true" aria-labelledby="addStageFrom"
-   role="dialog" tabIndex="-1">
-     <div className="modal-dialog">
-       <div className="modal-content">
-         <div className="modal-header">
-           <button type="button" className="close" aria-hidden="true" data-dismiss="modal">×</button>
-           <h4 className="modal-title">Create New Group</h4>
-         </div>
-         <div className="modal-body">
-           <form action="#" method="post" role="form">
-             <div className="form-group">
-               <input type="text" className="form-control" id="name" name="name" placeholder="Stage Name" />
-             </div>
-           </form>
-         </div>
-         <div className="modal-footer text-left">
-           <button id="taskboard-stage-creat" className="btn btn-primary" data-dismiss="modal"
-           type="button">Creat</button>
-           <a className="btn btn-sm btn-white" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
-         </div>
-       </div>
-     </div>
    </div>
  </div>
 		);
