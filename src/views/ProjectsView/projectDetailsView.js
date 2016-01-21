@@ -6,6 +6,7 @@ import ProjectComment from 'components/Projects/projectComment'
 import ProjectDocs from 'components/Projects/projectDocs'
 import TaskBoardView from '../TaskBoardView/taskBoardView'
 import AlertContainer from 'react-alert'
+import moment from 'moment'
 import "../../../Libs/styles/taskboard.scss";
 
 const alertOptions = {
@@ -30,9 +31,12 @@ class ProjectDetailsView extends Component {
           "Completed":{
             'tasks':[]
           }
-        }
+        },
+				comments:[]
       },
-      files:[]
+      files:[],
+			user:{},
+			userId:''
     }
     this.addDocs = this.addDocs.bind(this);
   }
@@ -45,6 +49,7 @@ class ProjectDetailsView extends Component {
       state:'project',
       asArray:false
     })
+		this.getUserStatus()
   }
   componentWillUnmount(){
     base.removeBinding(this.ref);
@@ -56,7 +61,6 @@ class ProjectDetailsView extends Component {
     let newFiles = this.state.files.slice();
     let message = this.alertMessage;
     let comment = this.refs.docsComment.value;
-    console.log(comment);
       this.state.files.map((item, index) => {
         var parseFile = new parse.File(item.name, item);
         parseFile.save().then(function(url){
@@ -84,7 +88,6 @@ class ProjectDetailsView extends Component {
     })
   }
   mapObject(object, callback) {
-    console.log();
     return Object.keys(object).map(function (key) {
       return callback(key, object[key]);
     });
@@ -102,33 +105,68 @@ class ProjectDetailsView extends Component {
 			})
     }
   }
+	getUserStatus(){
+		this.ref = base.getAuth();
+		if(!this.ref){
+			this.history.pushState(null, '/login')
+		}else{
+			this.userData = base.fetch('users/'+this.ref.uid,{
+				context: this,
+				asArray: false,
+				then(data){
+					this.setState({
+						user:data,
+						userId:this.ref.uid
+					})
+				}
+			});
+		}
+	}
  updateProject(){
-  let Refs = this.refs
-  let newFiles = this.state.files.slice();
+  let params = this.props.params.projectId.split(':');
+  let projectId = params[1];
+  let query = 'projects/' + projectId;
+  let projTitle = this.refs.projectName.value
+	let projDisc = this.refs.projectDiscription.value
   let alert = this.alertMessage;
-  let parseFile = new parse.File(newFiles[0].name, newFiles[0]);
-  parseFile.save().then(function(url){
-    console.log(url);
-    base.push('projects',{
-        data:{
-          title: Refs.projectName.value,
-          discription: Refs.projectDiscription.value,
-          mainImg: url._url,
-          docs:[{
-            docType:url._source.file.type,
-            docName:url._source.file.name,
-            url: url._url
-          }]
-        },
-        then(){
-          Refs.projectName.value = '';
-          Refs.projectDiscription.value = '';
-        }
-      })
-    })
-      this.setState({
-        files:[]
-      })
+	base.post(query,{
+		data:{
+			client:this.state.project.client,
+			date:this.state.project.date,
+			discription:projDisc,
+			docs:this.state.project.docs,
+			mainImg:this.state.project.mainImg,
+			status:this.state.project.status,
+			taskboards:this.state.project.taskboards,
+			title:projTitle
+		},
+		then(){
+			alert('Updated Project')
+
+		}
+	})
+
+	this.refs.projectName.value = '';
+	this.refs.projectDiscription.value = '';
+ }
+ uploadComment(){
+	 let comment = this.refs.userComment.value;
+	 let params = this.props.params.projectId.split(':');
+   let projectId = params[1];
+   let query = 'projects/' + projectId +'/comments';
+   let alert = this.alertMessage;
+ 	base.push(query,{
+ 		data:{
+ 			user:this.state.user,
+			comment: comment,
+			date:moment().format("dddd, MMMM Do YYYY, h:mm:ss a")
+ 		},
+ 		then(){
+ 			alert('Updated Project')
+
+ 		}
+ 	})
+ 	this.refs.userComment.value= '';
  }
 	render() {
 		return (
@@ -186,26 +224,21 @@ class ProjectDetailsView extends Component {
              <div className="panel-body">
                <div className="comments margin-horizontal-20">
                  <h3>Comments</h3>
-
+									 {
+ 		                this.mapObject(this.state.project.comments, function(index, item){
+											return <ProjectComment key={index} user={item.user} date={item.date} comment={item.comment}/>
+ 		                })
+ 		              }
                </div>
-               <form className="comments-add margin-top-35" action="#" method="post">
+               <div className="comments-add margin-top-35" >
                  <h3 className="margin-bottom-35">Leave A Reply</h3>
                  <div className="form-group">
-                   <input type="text" className="form-control" name="name" placeholder="Name"/>
+                   <textarea className="form-control" rows="5" ref="userComment" placeholder="Comment here"></textarea>
                  </div>
                  <div className="form-group">
-                   <input type="email" className="form-control" name="email" placeholder="Email"/>
+                   <button type="button" onClick={this.uploadComment.bind(this)} className="btn btn-primary">Comment</button>
                  </div>
-                 <div className="form-group">
-                   <input type="text" className="form-control" name="email" placeholder="Websit"/>
-                 </div>
-                 <div className="form-group">
-                   <textarea className="form-control" rows="5" placeholder="Comment here"></textarea>
-                 </div>
-                 <div className="form-group">
-                   <button type="button" className="btn btn-primary">Comment</button>
-                 </div>
-               </form>
+               </div>
               </div>
              </div>
            </div>
@@ -213,7 +246,7 @@ class ProjectDetailsView extends Component {
            <div className="panel">
              <div className="panel-heading">
                <h3 className="panel-title">Project Documents</h3>
-               <button type="button" className="btn btn-sm btn-icon btn-default btn-outline btn-round"
+               <button type="button" className="btn-raised btn btn-success btn-floating "
                  data-target="#addDocs"
                 data-toggle="modal"  data-original-title="Add Documents">
                  <i className="icon wb-upload" aria-hidden="true"></i>
@@ -263,9 +296,6 @@ class ProjectDetailsView extends Component {
                <textarea className="maxLength-textarea form-control mb-sm" ref="projectDiscription" placeholder="Project description."
                rows="4" maxLength="225" data-plugin="maxLength"></textarea>
              </div>
-             <Dropzone onDrop={this.onDrop.bind(this)}>
-               <div>Try dropping some files here, or click to select files to upload.</div>
-              </Dropzone>
            </form>
          </div>
          <div className="modal-footer text-right">

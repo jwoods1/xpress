@@ -21,14 +21,13 @@ import '../../../Libs/styles/DashboardLayout.scss'
 
 
 
-import Rebase from 're-base'
+import {base, parse} from '../../redux/utils/firebaseUtil'
 import { History } from 'react-router'
 import TopNav from '../../components/Nav/TopNav'
 import SideNav from '../../containers/Dashboard/SideNav'
 import OverView from '../../containers/Dashboard/OverView'
 
 
-var base = Rebase.createClass('https://xpressdesign.firebaseio.com/');
 
 const DashboardLayout = React.createClass({
 	mixins: [ History ],
@@ -61,10 +60,10 @@ const DashboardLayout = React.createClass({
 				context: this,
 				asArray: false,
 				then(data){
-					console.log(data);
 					this.setState({
-						user:data.name,
-						role:data.role
+						user:data,
+						role:data.role,
+						id:this.ref.uid
 					})
 				}
 			});

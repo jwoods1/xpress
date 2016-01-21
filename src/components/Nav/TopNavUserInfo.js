@@ -15,7 +15,7 @@ class TopNavUserInfo extends Component {
 							</a>
 							<ul className="dropdown-menu" role="menu">
 							<li role="presentation">
-								<Link to="/profile"><i className="icon wb-user" aria-hidden="true"></i> Profile</Link>
+								<Link to="/profile"><i className="icon wb-user" aria-hidden="true"></i> Profile Settings</Link>
 							</li>
 							<li className="divider" role="presentation"></li>
 							<li role="presentation">

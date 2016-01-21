@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import TaskBoardTask from './TaskboardTask'
-
 class TaskboardCard extends Component {
   addItem(){
     let newTask = this.refs.newTask.value;
@@ -14,7 +13,7 @@ class TaskboardCard extends Component {
       		<h5 className="taskboard-stage-title">{this.props.title}</h5>
       	</header>
       	<div className="taskboard-stage-content">
-      		<TaskBoardTask tasks={this.props.tasks} update={this.props.update} board={this.props.title}/>
+          <TaskBoardTask tasks={this.props.tasks} update={this.props.update} board={this.props.title}/>
       		<div className="action-wrap action-open">
       			<a className="add-item-toggle" href="#"><i className="icon wb-plus" aria-hidden="true"></i>Add Task</a>
       			<div className="add-item-wrap">

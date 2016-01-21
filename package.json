@@ -35,6 +35,7 @@
     "koa": "^1.1.2",
     "koa-connect-history-api-fallback": "^0.3.0",
     "koa-static": "^1.5.2",
+    "moment": "^2.11.1",
     "parse": "^1.6.14",
     "re-base": "^1.5.0",
     "react": "^0.14.0",

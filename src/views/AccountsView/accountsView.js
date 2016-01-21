@@ -69,7 +69,8 @@ const AccountsView = React.createClass({
 			data: {
 				name:this.refs.name.value,
 				organization: this.refs.organization.value,
-				role: this.refs.role.value
+				role: this.refs.role.value,
+				avatar:"https://cdn0.iconfinder.com/data/icons/social-messaging-ui-color-shapes/128/user-male-circle-blue-128.png"
 			}
 		});
 

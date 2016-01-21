@@ -7,29 +7,18 @@ class ProjectComment extends Component {
       <div className="comment media">
         <div className="media-left">
           <a className="avatar avatar-lg" href="javascript:void(0)">
-            <img src="../../../global/portraits/5.jpg" alt="..."/>
+            <img src={this.props.user.avatar} alt="..."/>
           </a>
         </div>
         <div className="media-body">
           <div className="comment-body">
-            <a className="comment-author" href="javascript:void(0)">Edward Fletcher</a>
+            <a className="comment-author" href="javascript:void(0)">{this.props.user.name}</a>
             <div className="comment-meta">
-              <span className="date">Yesterday at 12:30AM</span>
+              <span className="date">{this.props.date}</span>
             </div>
             <div className="comment-content">
-              <p>eniam ipsum pariatur anim labore sunt duis officia labore.
-                Occaecat sunt ipsum eu ad nostrud do in. Ea aliqua officia
-                magna laborum quis proident. Irure ullamco aliquip esse ipsum.
-                Exercitation enim dolore commodo mollit non laboris et velit
-                adipisicing. Nulla labore sint aliqua minim ad qui. Minim
-                sint aliqua magna anim duis laborum quis officia. Veniam
-                nostrud aliqua in anim. Pariatur elit ad ea incididunt aliquip.
-                Mollit Lorem in magna magna irure commodo do est ullamco.
+              <p>{this.props.comment}
               </p>
-            </div>
-            <div className="comment-actions">
-              <a className="text-like active icon wb-heart" href="javascript:void(0)" role="button"></a>
-              <a href="javascript:void(0)" role="button">Reply</a>
             </div>
           </div>
         </div>

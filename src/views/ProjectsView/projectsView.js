@@ -82,20 +82,18 @@ class ProjectsView extends Component {
         files:[]
       })
  }
+
 	render() {
 		return (
 	<div>
 		<div>
 	    <div className="page-header">
-	      <h1 onClick={this.slidePanel} className="page-title">Projects</h1>
-
+	      <h1 className="page-title">Projects</h1>
 	      <div className="page-header-actions">
-	        <form>
-	          <div className="input-search">
-	            <i className="input-search-icon wb-search" aria-hidden="true"></i>
-	            <input type="text" className="form-control" name="" placeholder="Search..." />
-	          </div>
-	        </form>
+          <button className="btn-raised btn btn-success btn-floating" data-target="#addProjectForm"
+      	  data-toggle="modal" type="button">
+      	    <i className="icon wb-plus" aria-hidden="true"></i>
+      	  </button>
 	      </div>
 	    </div>
 	    <div className="page-content">
@@ -112,12 +110,6 @@ class ProjectsView extends Component {
 	      </div>
 	    </div>
 	  </div>
-
-
-	  <button className="site-action btn-raised btn btn-success btn-floating" data-target="#addProjectForm"
-	  data-toggle="modal" type="button">
-	    <i className="icon wb-plus" aria-hidden="true"></i>
-	  </button>
 
 	  <div className="modal fade" id="addProjectForm" aria-hidden="true" aria-labelledby="addProjectForm"
 	  role="dialog" tabindex="-1">
@@ -155,8 +147,13 @@ class ProjectsView extends Component {
 	              </select>
 	            </div>
               <Dropzone onDrop={this.onDrop.bind(this)}>
-                <div>Try dropping some files here, or click to select files to upload.</div>
+                <div>Uploaded Main Project Image.</div>
                </Dropzone>
+               {
+                 this.state.files.map((item, index) => {
+                   return <img src={item.preview} key={index}/>
+                 })
+               }
 	          </form>
 	        </div>
 	        <div className="modal-footer text-right">

@@ -1,333 +1,146 @@
 import React, {Component} from 'react';
+import Dropzone from 'react-dropzone';
+import {base, parse} from '../../redux/utils/firebaseUtil'
+import AlertContainer from 'react-alert'
 
+const alertOptions = {
+	offset: 14,
+	position: 'top right',
+	theme:'dark',
+	time: 2000,
+	transitions: 'scale'
+};
 class ProfileView extends Component {
+	constructor(props){
+		super(props)
+		this.state={
+			files:[],
+			user:{},
+			userId:''
+		}
+	}
+	componentDidMount(){
+		this.getUserStatus()
+
+	}
+
+updateUser(){
+    let query = 'users/' + this.state.userId;
+    let newFiles = this.state.files.slice();
+    let message = this.alertMessage;
+    let bio = this.refs.bio.value ;
+		let fullName = this.refs.fullName.value;
+		let org = this.refs.organization.value;
+      this.state.files.map((item, index) => {
+        var parseFile = new parse.File(item.name, item);
+        parseFile.save().then(function(url){
+          base.post(query, {
+            data:{
+                name:fullName,
+                organization:org,
+                avatar: url._url,
+                bio: bio,
+								role:this.state.user.role
+
+            },then(){
+              message("Profile Updated")
+            }
+          })
+        });
+      })
+      this.setState({
+        files:[]
+      })
+  }
+  alertMessage(message){
+    msg.show(message , {
+      type:'success'
+    })
+  }
+	getUserStatus(){
+		this.ref = base.getAuth();
+		if(!this.ref){
+			this.history.pushState(null, '/login')
+		}else{
+			this.userData = base.fetch('users/'+this.ref.uid,{
+				context: this,
+				asArray: false,
+				then(data){
+					this.setState({
+						user:data,
+						userId:this.ref.uid
+					})
+				}
+			});
+		}
+	}
+  onDrop(files){
+		if(files.length > 0 ){
+			var file = files[0];
+			let name = file.name;
+			let type = file.type;
+			let fileType = type.split("/");
+
+			this.setState({
+				//images:this.state.images.concat([file]),
+				files: this.state.files.concat([file])
+			})
+    }
+  }
 	render() {
 		return (
-			 <div className="page-content container-fluid">
-      <div className="row" data-plugin="matchHeight" data-by-row="true">
-        <div className="col-xlg-3 col-lg-4 col-md-12">
-          <div className="widget widget-shadow">
-            <div className="widget-content text-center bg-white padding-40">
-              <div className="avatar avatar-100 margin-bottom-20">
-                <img src="../../../global/portraits/1.jpg" alt=""/>
-              </div>
-              <p className="font-size-20 blue-grey-700">Breno Bitencourt</p>
-              <p className="blue-grey-400 margin-bottom-20">Web Designer</p>
-              <p className="margin-bottom-35">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.
-                </p>
-              <ul className="list-inline font-size-18 margin-bottom-35">
-                <li>
-                  <a className="blue-grey-400" href="javascript:void(0)">
-                    <i className="icon bd-twitter" aria-hidden="true"></i>
-                  </a>
-                </li>
-                <li className="margin-left-10">
-                  <a className="blue-grey-400" href="javascript:void(0)">
-                    <i className="icon bd-facebook" aria-hidden="true"></i>
-                  </a>
-                </li>
-                <li className="margin-left-10">
-                  <a className="blue-grey-400" href="javascript:void(0)">
-                    <i className="icon bd-dribbble" aria-hidden="true"></i>
-                  </a>
-                </li>
-                <li className="margin-left-10">
-                  <a className="blue-grey-400" href="javascript:void(0)">
-                    <i className="icon bd-instagram" aria-hidden="true"></i>
-                  </a>
-                </li>
-              </ul>
-              <button type="button" className="btn btn-primary padding-horizontal-40">Follow</button>
-            </div>
-          </div>
-        </div>
+			<div className="col-md-12">
+				<div className="panel">
+					<div className="panel-body nav-tabs-animate">
+						<ul className="nav nav-tabs nav-tabs-line" data-plugin="nav-tabs" role="tablist">
+							<li className="active" role="presentation"><a data-toggle="tab" href="#AccountSettings" aria-controls="AccountSettings"
+								role="tab">Account Settings </a></li>
+						</ul>
 
-        <div className="col-xlg-6 col-lg-8 col-md-12">
-          <div className="widget widget-shadow example-responsive" id="widgetLinearea">
-            <div className="widget-content padding-30" >
-              <div className="row padding-bottom-20" >
-                <div className="col-sm-8 col-xs-6">
-                  <div className="blue-grey-700">YOUR TRAFFIC VIEWS</div>
-                </div>
-                <div className="col-sm-4 col-xs-6">
-                  <div className="row">
-                    <div className="col-xs-6">
-                      <div className="counter counter-md">
-                        <div className="counter-number-group text-nowrap">
-                          <span className="counter-number">76</span>
-                          <span className="counter-number-related">%</span>
-                        </div>
-                        <div className="counter-label blue-grey-400">PC Browser</div>
-                      </div>
-                    </div>
-                    <div className="col-xs-6">
-                      <div className="counter counter-md">
-                        <div className="counter-number-group text-nowrap">
-                          <span className="counter-number">24</span>
-                          <span className="counter-number-related">%</span>
-                        </div>
-                        <div className="counter-label blue-grey-400">Mobile Phone</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="ct-chart margin-bottom-30" ></div>
-              <ul className="list-inline text-center margin-bottom-0">
-                <li>
-                  <i className="icon wb-large-point blue-200 margin-right-10" aria-hidden="true"></i>                  PC BROWSER
-                </li>
-                <li className="margin-left-35">
-                  <i className="icon wb-large-point teal-200 margin-right-10" aria-hidden="true"></i>                  MOBILE PHONE
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+						<div className="tab-content">
+							<div className="tab-pane active animation-slide-left" id="AccountSettings" role="tabpanel">
+								<div className="page-header">
+									<h1 className="page-title">Edit {this.state.user.name} Account Settings</h1>
+								</div>
+								<div className="form-group">
+									<input type="text" className="form-control" ref="fullName" value={this.state.user.name} placeholder="Full Name" />
+								</div>
+								<div className="form-group">
+									<input type="text" className="form-control" value={this.state.user.bio} ref="bio" placeholder="Bio" />
+								</div>
+								<div className="form-group">
+									<input type="text" className="form-control" value={this.state.user.organization} ref="organization" placeholder="organization" />
+								</div>
+								<h4>Upload Avatar</h4>
+								<div className="col-md-12" style={{marginBottom:20 +'px'}}>
+									<div className="col-md-4">
+										<Dropzone style={{height:100 + "px", width:100 + "px", border:4 +'px '+ 'dotted ' + '#000', textAlign:'center'}} onDrop={this.onDrop.bind(this)}>
+											<div>Click</div>
+											<div>To</div>
+											<div>Upload</div>
+											<div>Avatar</div>
+										 </Dropzone>
+									</div>
+									<div className="col-md-6">
+											{this.state.files.length > 0 ? <div>
+			                <h2>Uploading {this.state.files.length} files...</h2>
+			                <div>{this.state.files.map((file) => <img src={file.preview} /> )}</div>
+			                </div> : null}
+									</div>
+								</div>
+								<div >
+									<button className="btn btn-success" onClick={this.updateUser.bind(this)}>Update</button>
+								</div>
 
-        <div className="col-xlg-3 col-md-12">
-          <div className="row height-full">
-            <div className="col-xlg-12 col-md-6" >
-              <div className="widget widget-shadow bg-blue-600 white">
-                <div className="widget-content padding-30">
-                  <div className="counter counter-lg counter-inverse text-left">
-                    <div className="counter-label margin-bottom-20">
-                      <div>OVERALL SALES</div>
-                      <div>Lorem ipsum dolor sit amet</div>
-                    </div>
-                    <div className="counter-number-group margin-bottom-15">
-                      <span className="counter-number-related">$</span>
-                      <span className="counter-number">14,000</span>
-                    </div>
-                    <div className="counter-label">
-                      <div className="progress progress-xs margin-bottom-10 bg-blue-800">
-                        <div className="progress-bar progress-bar-info bg-white"  aria-valuemax="100"
-                        aria-valuemin="0" aria-valuenow="42" role="progressbar">
-                          <span className="sr-only">42%</span>
-                        </div>
-                      </div>
-                      <div className="counter counter-sm text-left">
-                        <div className="counter-number-group">
-                          <span className="counter-number font-size-14">42%</span>
-                          <span className="counter-number-related font-size-14">HIGHER THAN LAST MONTH</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+							</div>
+							<div className="tab-pane animation-slide-left" id="Managment" role="tabpanel">
+							</div>
+						</div>
+					</div>
+				</div>
+				<AlertContainer ref={(a) => global.msg = a} {...alertOptions} />
+			</div>
 
-            <div className="col-xlg-12 col-md-6" >
-              <div className="widget widget-shadow bg-red-600 white">
-                <div className="widget-content padding-30">
-                  <div className="counter counter-lg counter-inverse text-left">
-                    <div className="counter-label margin-bottom-20">
-                      <div>TODAY'S SALES</div>
-                      <div>Lorem ipsum dolor sit amet</div>
-                    </div>
-                    <div className="counter-number-group margin-bottom-10">
-                      <span className="counter-number-related">$</span>
-                      <span className="counter-number">41,160</span>
-                    </div>
-                    <div className="counter-label">
-                      <div className="progress progress-xs margin-bottom-10 bg-red-800">
-                        <div className="progress-bar progress-bar-info bg-white"  aria-valuemax="100"
-                        aria-valuemin="0" aria-valuenow="70" role="progressbar">
-                          <span className="sr-only">70%</span>
-                        </div>
-                      </div>
-                      <div className="counter counter-sm text-left">
-                        <div className="counter-number-group">
-                          <span className="counter-number font-size-14">70%</span>
-                          <span className="counter-number-related font-size-14">HIGHER THAN LAST MONTH</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="row" data-plugin="matchHeight" data-by-row="true">
-        <div className="col-lg-4 col-md-6">
-          <div className="panel" id="followers">
-            <div className="panel-heading">
-              <h3 className="panel-title">
-                Followers
-              </h3>
-            </div>
-            <div className="panel-body">
-              <ul className="list-group list-group-dividered list-group-full">
-                <li className="list-group-item">
-                  <div className="media">
-                    <div className="media-left">
-                      <a className="avatar avatar-online" href="javascript:void(0)">
-                        <img src="../../../global/portraits/9.jpg" alt=""/>
-                        <i></i>
-                      </a>
-                    </div>
-                    <div className="media-body">
-                      <div className="pull-right">
-                        <button type="button" className="btn btn-outline btn-default btn-sm">Follow</button>
-                      </div>
-                      <div>
-                        <span>Willard Wood</span>
-                      </div>
-                      <small>@heavybutterfly920</small>
-                    </div>
-                  </div>
-                </li>
-
-                <li className="list-group-item">
-                  <div className="media">
-                    <div className="media-left">
-                      <a className="avatar avatar-away" href="javascript:void(0)">
-                        <img src="../../../global/portraits/10.jpg" alt=""/>
-                        <i></i>
-                      </a>
-                    </div>
-                    <div className="media-body">
-                      <div className="pull-right">
-                        <button type="button" className="btn btn-success btn-default btn-sm"><i className="icon wb-check" aria-hidden="true"></i>Following</button>
-                      </div>
-                      <div>
-                        <span>Ronnie Ellis</span>
-                      </div>
-                      <small>@kingronnie24</small>
-                    </div>
-                  </div>
-                </li>
-                <li className="list-group-item">
-                  <div className="media">
-                    <div className="media-left">
-                      <a className="avatar avatar-busy" href="javascript:void(0)">
-                        <img src="../../../global/portraits/11.jpg" alt=""/>
-                        <i></i>
-                      </a>
-                    </div>
-                    <div className="media-body">
-                      <div className="pull-right">
-                        <button type="button" className="btn btn-outline btn-default btn-sm">Follow</button>
-                      </div>
-                      <div>
-                        <span>Gwendolyn Wheeler</span>
-                      </div>
-                      <small>@perttygirl66</small>
-                    </div>
-                  </div>
-                </li>
-                <li className="list-group-item">
-                  <div className="media">
-                    <div className="media-left">
-                      <a className="avatar avatar-off" href="javascript:void(0)">
-                        <img src="../../../global/portraits/12.jpg" alt=""/>
-                        <i></i>
-                      </a>
-                    </div>
-                    <div className="media-body">
-                      <div className="pull-right">
-                        <button type="button" className="btn btn-outline btn-default btn-sm">Follow</button>
-                      </div>
-                      <div>
-                        <span>Daniel Russell</span>
-                      </div>
-                      <small>@danieltiger08</small>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div className="col-lg-4 col-md-6">
-          <div className="panel">
-            <div className="panel-heading">
-              <h3 className="panel-title">Tickets</h3>
-            </div>
-            <div className="panel-body">
-              <ul className="list-group list-group-dividered list-group-full">
-                <li className="list-group-item">
-                  <small className="label label-round label-info pull-right">Completed</small>
-                  <p>
-                    <span>Server unavaible</span>
-                    <span>[13060]</span>
-                  </p>
-                  <small>Opened by
-                    <a className="hightlight" href="javascript:void(0)">
-                      <span className="avatar avatar-xs">
-                        <img src="../../../global/portraits/1.jpg" alt=""/>
-                      </span>
-                      <span>Herman Beck</span>
-                    </a>
-                    <time dateTime="2015-07-01T08:55">2 hours ago</time>
-                  </small>
-                </li>
-                <li className="list-group-item">
-                  <small className="label label-round label-warning pull-right">Pendening</small>
-                  <p>
-                    <span>Mobile App Problem</span>
-                    <span>[13061]</span>
-                  </p>
-                  <small>Opened by
-                    <a className="hightlight" href="javascript:void(0)">
-                      <span className="avatar avatar-xs">
-                        <img src="../../../global/portraits/2.jpg" alt=""/>
-                      </span>
-                      <span>Mary Adams</span>
-                    </a>
-                    <time dateTime="2015-07-01T07:55">1 hour ago</time>
-                  </small>
-                </li>
-                <li className="list-group-item">
-                  <small className="label label-round label-primary pull-right">In progress</small>
-                  <p>
-                    <span>IE8 problem</span>
-                    <span>[13062]</span>
-                  </p>
-                  <small>Opened by
-                    <a className="hightlight" href="javascript:void(0)">
-                      <span className="avatar avatar-xs">
-                        <img src="../../../global/portraits/3.jpg" alt=""/>
-                      </span>
-                      <span>Caleb Richards</span>
-                    </a>
-                    <time dateTime="2015-06-28T21:05">3 days ago</time>
-                  </small>
-                </li>
-                <li className="list-group-item">
-                  <small className="label label-round label-danger pull-right">Rejected</small>
-                  <p>
-                    <span>Respoonsive problem</span>
-                    <span>[13063]</span>
-                  </p>
-                  <small>Opened by
-                    <a className="hightlight" href="javascript:void(0)">
-                      <span className="avatar avatar-xs">
-                        <img src="../../../global/portraits/4.jpg" alt=""/>
-                      </span>
-                      <span>June Lane</span>
-                    </a>
-                    <time dateTime="2015-06-27T13:05">4 days ago</time>
-                  </small>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div className="col-lg-4 col-md-12">
-          <div className="widget widget-shadow" id="widgetGmap">
-            <div className="map height-full" id="gmap"></div>
-          </div>
-        </div>
-      </div>
-    </div>
 		);
 	}
 }
