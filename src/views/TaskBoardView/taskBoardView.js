@@ -58,7 +58,8 @@ addTaskItem(board, task){
     data:{
       task:{
         label:task,
-        complete:false
+        complete:false,
+        userImg:this.props.user.avatar
       }
     },then(){
       console.log('updated');
@@ -69,6 +70,7 @@ updateItem(board, key, checked, label){
   let params = this.props.projectId.split(':');
   let projectId = params[1];
   let query = 'projects/' + projectId +'/taskboards/' + board +'/tasks/' + key +'/task';
+  console.log(query);
   base.post(query, {
     data:{
       complete:checked,
@@ -86,7 +88,7 @@ updateItem(board, key, checked, label){
 			  </div>
 			  <div className="page-content">
 			    <ul className="taskboard-stages" id="taskboard-stages">
-            <TaskboardCard key="backLog" title={this.props.boards.taskboards.Backlog.title} update={this.updateItem} tasks={this.props.boards.taskboards.Backlog.tasks} board={this.props.boards.taskboards.Backlog} addTaskItem={this.addTaskItem}>
+            <TaskboardCard user={this.props.user} key="backLog" title={this.props.boards.taskboards.Backlog.title} update={this.updateItem} tasks={this.props.boards.taskboards.Backlog.tasks} board={this.props.boards.taskboards.Backlog} addTaskItem={this.addTaskItem}>
             </TaskboardCard>
             <TaskboardCard key="doingLog" title={this.props.boards.taskboards.Doing.title} update={this.updateItem} tasks={this.props.boards.taskboards.Doing.tasks} board={this.props.boards.taskboards.Doing} addTaskItem={this.addTaskItem}>
             </TaskboardCard>

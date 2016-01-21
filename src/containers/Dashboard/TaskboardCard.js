@@ -1,19 +1,60 @@
 import React, {Component} from 'react'
-import TaskBoardTask from './TaskboardTask'
+import Task from 'components/TaskBoard/task'
+
 class TaskboardCard extends Component {
+  constructor(props) {
+      super(props);
+      this.state = {
+        tasks:{},
+        board:''
+      };
+      this.update = this.update.bind(this);
+      this.mapObject = this.mapObject.bind(this);
+    }
+componentWillReceiveProps(nextProps){
+  if(nextProps.tasks){
+    this.setState({
+      tasks:nextProps.tasks,
+      board:nextProps.board
+    })
+  }
+
+}
   addItem(){
     let newTask = this.refs.newTask.value;
     let board = this.props.title;
     this.props.addTaskItem(board,newTask);
   }
+  mapObject(object, callback) {
+    console.log();
+    return Object.keys(object).map(function (key) {
+      return callback(key, object[key]);
+    });
+  }
+  update(board, item, checked, label){
+    this.props.update(board, item, checked, label);
+  }
+  removeItem(board,item){
+    this.props.removeItem(board,item);
+  }
   render() {
+    var update = this.update;
+    var remove = this.removeItem;
+    var board = this.state.board;
+
     return(
       <li className="taskboard-stage">
       	<header className="taskboard-stage-header">
       		<h5 className="taskboard-stage-title">{this.props.title}</h5>
       	</header>
       	<div className="taskboard-stage-content">
-          <TaskBoardTask tasks={this.props.tasks} update={this.props.update} board={this.props.title}/>
+          <ul className="list-group taskboard-list">
+            {
+              this.mapObject(this.state.tasks, function(key, value){
+                return <Task label={value.task.label} item={key} complete={value.task.complete} userImg={value.task.userImg} update={update} remove={remove} board={board}  key={key} />
+              })
+            }
+          </ul>
       		<div className="action-wrap action-open">
       			<a className="add-item-toggle" href="#"><i className="icon wb-plus" aria-hidden="true"></i>Add Task</a>
       			<div className="add-item-wrap">

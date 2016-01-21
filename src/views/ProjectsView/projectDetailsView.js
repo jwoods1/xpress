@@ -272,7 +272,7 @@ class ProjectDetailsView extends Component {
            </div>
          </div>
          <div className="tab-pane animation-slide-left" id="Taskboard" role="tabpanel">
-           <TaskBoardView boards={this.state.project} projectId={this.props.params.projectId}/ >
+           <TaskBoardView boards={this.state.project} projectId={this.props.params.projectId} user={this.state.user}/ >
          </div>
        </div>
      </div>

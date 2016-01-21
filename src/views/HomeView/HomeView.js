@@ -1,9 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-
+import {base, parse} from '../../redux/utils/firebaseUtil'
 import '../../../Libs/styles/homeView.scss'
 import classes from './HomeView.scss'
+import AlertContainer from 'react-alert'
 
 // We define mapStateToProps where we'd normally use
 // the @connect decorator so the data requirements are clear upfront, but then
@@ -16,12 +17,20 @@ const bgTrans = {
 const bgBlack = {
   background: '#000'
 }
+const alertOptions = {
+	offset: 14,
+	position: 'bottom right',
+	theme:'dark',
+	time: 2000,
+	transitions: 'scale'
+};
 export class HomeView extends React.Component {
   constructor(){
     super();
     this.state = {
       navColor: bgTrans
     }
+    this.addContactUs = this.addContactUs.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
   }
   componentDidMount(){
@@ -41,6 +50,32 @@ export class HomeView extends React.Component {
         navColor:bgTrans
       });
     }
+  }
+  alertMessage(message){
+    msg.show(message , {
+      type:'success'
+    })
+  }
+  addContactUs(){
+    let name = this.refs.inputName.value;
+    let email = this.refs.inputEmail.value;
+    let proj = this.refs.inputSubject.value;
+    let details = this.refs.inputDetails.value;
+    let message = this.alertMessage;
+    base.push('/contact', {
+      data:{
+        name:name,
+        email:email,
+        project:proj,
+        details:details
+      }, then(){
+      message('Contact aded!');
+      name = '';
+      email = '';
+      proj = '';
+      details = '';
+      }
+    })
   }
   render () {
     return (
@@ -243,29 +278,29 @@ export class HomeView extends React.Component {
            <div className="row">
              <div className="col-md-6 col-md-offset-3 text-center">
                <h1 className="text-primary">Get in touch!</h1>
-               <form method="post" role="form">
+               <div method="post" role="form">
                  <div className="form-group">
                    <label className="sr-only" htmlFor="inputName">Name</label>
-                   <input type="text" className="form-control" id="inputName" name="name" placeholder="Name"/>
+                   <input type="text" className="form-control" id="inputName" ref="inputName" name="name" placeholder="Name"/>
                  </div>
                  <div className="form-group">
                    <label className="sr-only" htmlFor="inputEmail">Email</label>
-                   <input type="email" className="form-control" id="inputEmail" name="email" placeholder="Email"/>
+                   <input type="email" className="form-control" id="inputEmail" ref="inputEmail" name="email" placeholder="Email"/>
                  </div>
                  <div className="form-group">
                    <label className="sr-only" htmlFor="subject">Project Theme</label>
-                   <input type="text" className="form-control" id="subject" name="subject"
+                   <input type="text" className="form-control" id="subject" ref="inputSubject" name="subject"
                    placeholder="Tell us about your project"/>
                  </div>
                  <div className="form-group">
                    <label className="sr-only" htmlFor="subject">Project Details</label>
-                   <textarea id="details" name="detail" placeholder="Tell us about your next big idea" className="form-control" rows="5"></textarea>
+                   <textarea id="details" name="detail" placeholder="Tell us about your next big idea" ref="inputDetails" className="form-control" rows="5"></textarea>
                  </div>
-                 <button type="submit" className="btn btn-success btn-block">Submit</button>
-               </form>
+                 <button onClick={this.addContactUs} className="btn btn-success btn-block">Submit</button>
+               </div>
              </div>
            </div>
-
+           <AlertContainer ref={(a) => global.msg = a} {...alertOptions} />
          </section>
       </div>
     )

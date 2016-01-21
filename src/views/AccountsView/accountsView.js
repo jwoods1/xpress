@@ -2,13 +2,16 @@ import React from 'react'
 import {base} from '../../redux/utils/firebaseUtil'
 import { History } from 'react-router'
 import UserList from 'components/Auth/UserList'
+import ContactList from 'components/Auth/contactList'
+
 const AccountsView = React.createClass({
 	mixins: [ History ],
 	getInitialState(){
 		return(
 			this.state = {
 				roles: [],
-				users:[]
+				users:[],
+				contacts:[]
 			}
 		)
 
@@ -16,6 +19,7 @@ const AccountsView = React.createClass({
 	componentDidMount(){
 		this.getRoles()
 		this.getUsers();
+		this.getContact();
 	},
 	componentWillUnmount(){
 		base.removeBinding(this.userRef);
@@ -38,6 +42,18 @@ const AccountsView = React.createClass({
 				this.setState({
 					roles:data
 				})
+			}
+		});
+	},
+	getContact(){
+		base.fetch('contact',{
+			context: this,
+			asArray: true,
+			then(data){
+				this.setState({
+					contacts:data
+				})
+				console.log(data);
 			}
 		});
 	},
@@ -88,6 +104,8 @@ const AccountsView = React.createClass({
 									role="tab">Add Account </a></li>
 									<li  role="presentation"><a data-toggle="tab" href="#Managment" aria-controls="Managment"
 										role="tab">User Managment</a></li>
+									<li  role="presentation"><a data-toggle="tab" href="#ContactInfo" aria-controls="ContactInfo"
+											role="tab">Contact us info</a></li>
 							</ul>
 
 							<div className="tab-content">
@@ -139,6 +157,32 @@ const AccountsView = React.createClass({
 										<tbody>
 											{this.state.users.map((item, index) => {
 												return <UserList org={item.organization} key={index} name={item.name} role={item.role} edit={this.editUser} remove={this.removeUser} id={item} / >
+											})}
+										</tbody>
+									</table>
+								</div>
+								<div className="tab-pane animation-slide-left" id="ContactInfo" role="tabpanel">
+									<h2>Contact info</h2>
+									<table className="table">
+										<thead>
+											<tr>
+												<th>
+													Name
+												</th>
+												<th>
+													Email
+												</th>
+												<th>
+												Subject
+												</th>
+												<th>
+													Details
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											{this.state.contacts.map((item, index) => {
+												return <ContactList name={item.name} key={index} subject={item.project} details={item.details} email={item.Email} / >
 											})}
 										</tbody>
 									</table>

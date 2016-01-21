@@ -8,9 +8,8 @@ class Task extends Component {
   isChecked(){
     let item = this.props.item;
     let checked = this.refs.taskChecked.checked;
-    let board = this.props.board
+    let board = this.props.board.title;
     let label = this.props.label
-    console.log(item);
     this.props.update(board, item, checked, label)
   }
   render() {
