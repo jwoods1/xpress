@@ -2,8 +2,6 @@ import React, {Component, PropTypes} from 'react'
 import {base, parse} from '../../redux/utils/firebaseUtil'
 import {DragSource} from 'react-dnd'
 import TaskboardCard from 'containers/Dashboard/TaskboardCard'
-import TaskBoardTask from 'containers/Dashboard/TaskboardTask'
-
 import "../../../Libs/styles/taskboard.scss"
 //import "../../../Libs/scripts/taskboardApp.js"; // temp
 //wimport "../../../Libs/scripts/taskboard.js"; // temp need to xtract templates make react components
@@ -58,8 +56,7 @@ addTaskItem(board, task){
     data:{
       task:{
         label:task,
-        complete:false,
-        userImg:this.props.user.avatar
+        complete:false
       }
     },then(){
       console.log('updated');
@@ -70,7 +67,6 @@ updateItem(board, key, checked, label){
   let params = this.props.projectId.split(':');
   let projectId = params[1];
   let query = 'projects/' + projectId +'/taskboards/' + board +'/tasks/' + key +'/task';
-  console.log(query);
   base.post(query, {
     data:{
       complete:checked,
@@ -88,12 +84,9 @@ updateItem(board, key, checked, label){
 			  </div>
 			  <div className="page-content">
 			    <ul className="taskboard-stages" id="taskboard-stages">
-            <TaskboardCard user={this.props.user} key="backLog" title={this.props.boards.taskboards.Backlog.title} update={this.updateItem} tasks={this.props.boards.taskboards.Backlog.tasks} board={this.props.boards.taskboards.Backlog} addTaskItem={this.addTaskItem}>
-            </TaskboardCard>
-            <TaskboardCard key="doingLog" title={this.props.boards.taskboards.Doing.title} update={this.updateItem} tasks={this.props.boards.taskboards.Doing.tasks} board={this.props.boards.taskboards.Doing} addTaskItem={this.addTaskItem}>
-            </TaskboardCard>
-            <TaskboardCard key="completeLog"title={this.props.boards.taskboards.Completed.title}  update={this.updateItem} tasks={this.props.boards.taskboards.Completed.tasks} board={this.props.boards.taskboards.Completed}  addTaskItem={this.addTaskItem}>
-            </TaskboardCard>
+            <TaskboardCard key="backLog" title={this.props.boards.taskboards.Backlog.title} update={this.updateItem} tasks={this.props.boards.taskboards.Backlog.tasks} board={this.props.boards.taskboards.Backlog} addTaskItem={this.addTaskItem}/>
+            <TaskboardCard key="doingLog" title={this.props.boards.taskboards.Doing.title} update={this.updateItem} tasks={this.props.boards.taskboards.Doing.tasks} board={this.props.boards.taskboards.Doing} addTaskItem={this.addTaskItem}/>
+            <TaskboardCard key="completeLog"title={this.props.boards.taskboards.Completed.title}  update={this.updateItem} tasks={this.props.boards.taskboards.Completed.tasks} board={this.props.boards.taskboards.Completed}  addTaskItem={this.addTaskItem} />
 			    </ul>
 			  </div>
 			</div>

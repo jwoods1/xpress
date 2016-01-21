@@ -21,7 +21,7 @@ class ProjectDetailsView extends Component {
     super(props);
     this.state = {
       project:{
-        docs:[],
+        docs:{},
         taskboards:{"Backlog":{
           'tasks':[]
         },
@@ -32,7 +32,7 @@ class ProjectDetailsView extends Component {
             'tasks':[]
           }
         },
-				comments:[]
+				comments:{}
       },
       files:[],
 			user:{},
@@ -88,9 +88,12 @@ class ProjectDetailsView extends Component {
     })
   }
   mapObject(object, callback) {
-    return Object.keys(object).map(function (key) {
-      return callback(key, object[key]);
-    });
+    if(object){
+      return Object.keys(object).map(function (key) {
+        return callback(key, object[key]);
+      });
+    }
+
   }
   onDrop(files){
 		if(files.length > 0 ){
@@ -255,7 +258,6 @@ class ProjectDetailsView extends Component {
              <div className="panel-body">
              {
                this.mapObject(this.state.project.docs, function(index, item){
-                 console.log(item.docType);
                  if(item.docType == 'image/jpeg' || item.docType == 'image/png'){
                    return <ProjectDocs url={item.url} docType={item.docType} docName={item.docName} key={index} />
 

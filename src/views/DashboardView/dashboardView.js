@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {base, parse} from '../../redux/utils/firebaseUtil'
+import {base, parse, Ref} from '../../redux/utils/firebaseUtil'
 import OverView from '../../containers/Dashboard/OverView'
 
 class DashboardView extends Component{
@@ -32,6 +32,7 @@ class DashboardView extends Component{
 		}
 	}
 	render() {
+	
 			return (
 				<div>
 					<OverView user={this.state.user}/>
