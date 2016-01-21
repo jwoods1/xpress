@@ -124,6 +124,7 @@ class ProjectDetailsView extends Component {
 				}
 			});
 		}
+    console.log(this.state.project);
 	}
  updateProject(){
   let params = this.props.params.projectId.split(':');
@@ -211,7 +212,6 @@ class ProjectDetailsView extends Component {
              </div>
              <div className="panel-body">
                <p>{this.state.project.discription}</p>
-
              <dl className="dl-horizontal">
                <dt>Project Due Date:</dt>
                <dd>{this.state.project.date}</dd><br/>
@@ -220,7 +220,6 @@ class ProjectDetailsView extends Component {
                <dt>Last Updated:</dt>
                <dd>1/26/16</dd>
              </dl>
-
              </div>
            </div>
            <div className="panel">

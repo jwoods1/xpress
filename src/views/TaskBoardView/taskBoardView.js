@@ -43,6 +43,7 @@ class TaskBoardView extends Component {
     super(props);
     this.addTaskItem = this.addTaskItem.bind(this);
     this.updateItem = this.updateItem.bind(this);
+    this.removeItem = this.removeItem.bind(this);
 
   }
 componentDidMount(){
@@ -60,6 +61,15 @@ addTaskItem(board, task){
       }
     },then(){
       console.log('updated');
+    }
+  })
+}
+removeItem(board, task){
+  let params = this.props.projectId.split(':');
+  let projectId = params[1];
+  let query = 'projects/' + projectId +'/taskboards/' + board +'/tasks/'+task;
+  base.post(query, {
+    data:{
     }
   })
 }
@@ -84,9 +94,9 @@ updateItem(board, key, checked, label){
 			  </div>
 			  <div className="page-content">
 			    <ul className="taskboard-stages" id="taskboard-stages">
-            <TaskboardCard key="backLog" title={this.props.boards.taskboards.Backlog.title} update={this.updateItem} tasks={this.props.boards.taskboards.Backlog.tasks} board={this.props.boards.taskboards.Backlog} addTaskItem={this.addTaskItem}/>
-            <TaskboardCard key="doingLog" title={this.props.boards.taskboards.Doing.title} update={this.updateItem} tasks={this.props.boards.taskboards.Doing.tasks} board={this.props.boards.taskboards.Doing} addTaskItem={this.addTaskItem}/>
-            <TaskboardCard key="completeLog"title={this.props.boards.taskboards.Completed.title}  update={this.updateItem} tasks={this.props.boards.taskboards.Completed.tasks} board={this.props.boards.taskboards.Completed}  addTaskItem={this.addTaskItem} />
+            <TaskboardCard key="backLog" title={this.props.boards.taskboards.Backlog.title} update={this.updateItem} remove={this.removeItem} tasks={this.props.boards.taskboards.Backlog.tasks} board={this.props.boards.taskboards.Backlog} addTaskItem={this.addTaskItem}/>
+            <TaskboardCard key="doingLog" title={this.props.boards.taskboards.Doing.title} update={this.updateItem} remove={this.removeItem} tasks={this.props.boards.taskboards.Doing.tasks} board={this.props.boards.taskboards.Doing} addTaskItem={this.addTaskItem}/>
+            <TaskboardCard key="completeLog"title={this.props.boards.taskboards.Completed.title}  update={this.updateItem} remove={this.removeItem} tasks={this.props.boards.taskboards.Completed.tasks} board={this.props.boards.taskboards.Completed}  addTaskItem={this.addTaskItem} />
 			    </ul>
 			  </div>
 			</div>

@@ -34,14 +34,11 @@ componentWillReceiveProps(nextProps){
   update(board, item, checked, label){
     this.props.update(board, item, checked, label);
   }
-  removeItem(board,item){
-    this.props.removeItem(board,item);
-  }
+
   render() {
     var update = this.update;
-    var remove = this.removeItem;
+    var remove = this.props.remove;
     var board = this.state.board;
-
     return(
       <li className="taskboard-stage">
       	<header className="taskboard-stage-header">
@@ -51,6 +48,8 @@ componentWillReceiveProps(nextProps){
           <ul className="list-group taskboard-list">
             {
               this.mapObject(this.state.tasks, function(key, value){
+                console.log(key);
+                console.log(value);
                 return <Task label={value.task.label} item={key} complete={value.task.complete} userImg={value.task.userImg} update={update} remove={remove} board={board}  key={key} />
               })
             }

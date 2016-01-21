@@ -11,6 +11,9 @@ Parse.initialize("ioE7VoxkOqu75bhOxg7NdDnk2mF8NW9CVVfZ42cy", "JEqfGJvRjQgO9CZYjO
 
 export const parse = Parse;
 
-Ref.on('value', function(snapshot) {
+Ref.on('child_changed', function(snapshot) {
+  snapshot.ref().child("comments").on("child_changed", function(itemSnap){
+    console.log(itemSnap.val());
+  })
 console.log(snapshot.val());
 });
