@@ -283,19 +283,19 @@ class ProjectDetailsView extends Component {
        <div className="modal-content">
          <div className="modal-header">
            <button type="button" className="close" aria-hidden="true" data-dismiss="modal">×</button>
-           <h4 className="modal-title">Create New Project</h4>
+           <h4 className="modal-title">Edit Project</h4>
          </div>
 
          <div className="modal-body">
            <form action="#" method="post" role="form">
              <div className="form-group">
                <label className="control-label margin-bottom-15" htmlFor="name">Project name:</label>
-               <input type="text" className="form-control" ref="projectName" id="name" name="name" placeholder="Project name" />
+               <input type="text" className="form-control" ref="projectName" value={this.state.project.title) name="name" placeholder="Project name" />
              </div>
              <div className="form-group">
                <label className="control-label margin-bottom-15" htmlFor="name">Project description:</label>
-               <textarea className="maxLength-textarea form-control mb-sm" ref="projectDiscription" placeholder="Project description."
-               rows="4" maxLength="225" data-plugin="maxLength"></textarea>
+               <textarea className="maxLength-textarea form-control mb-sm" value={this.state.project.discription} ref="projectDiscription" placeholder="Project description."
+               rows="10" data-plugin="maxLength"></textarea>
              </div>
            </form>
          </div>
