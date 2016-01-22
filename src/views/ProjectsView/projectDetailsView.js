@@ -290,12 +290,12 @@ class ProjectDetailsView extends Component {
            <form action="#" method="post" role="form">
              <div className="form-group">
                <label className="control-label margin-bottom-15" htmlFor="name">Project name:</label>
-               <input type="text" className="form-control" ref="projectName" value={this.state.project.title) name="name" placeholder="Project name" />
+               <input type="text" className="form-control" ref="projectName" value={this.state.project.title} id="name" name="name" placeholder="Project name" />
              </div>
              <div className="form-group">
                <label className="control-label margin-bottom-15" htmlFor="name">Project description:</label>
-               <textarea className="maxLength-textarea form-control mb-sm" value={this.state.project.discription} ref="projectDiscription" placeholder="Project description."
-               rows="10" data-plugin="maxLength"></textarea>
+               <textarea className="form-control mb-sm" value={this.state.project.discription} ref="projectDiscription" placeholder="Project description."
+               rows="10" ></textarea>
              </div>
            </form>
          </div>

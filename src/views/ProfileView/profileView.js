@@ -27,6 +27,7 @@ class ProfileView extends Component {
 updateUser(){
     let query = 'users/' + this.state.userId;
     let newFiles = this.state.files.slice();
+		let userRole = this.state.user.role;
     let message = this.alertMessage;
     let bio = this.refs.bio.value ;
 		let fullName = this.refs.fullName.value;
@@ -40,7 +41,7 @@ updateUser(){
                 organization:org,
                 avatar: url._url,
                 bio: bio,
-								role:this.state.user.role
+								role:userRole
 
             },then(){
               message("Profile Updated")
