@@ -1,22 +1,10 @@
-var express = require('express');
-var path = require('path');
-var app = express();
-
-app.set('port', (process.env.PORT || 3000));
-
-app.use(express.static(__dirname + '/dist'));
-app.get('*', function (request, response){
-  response.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
-})
-app.get('/:*', function (request, response){
-  response.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
-})
-
-app.get('*/*/*', function (request, response){
-  response.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
-})
+var app = require('koa')(),
+serve = require('koa-static');
+var route= require('koa-route');
+app.use(require('koa-connect-history-api-fallback')({
+  verbose: true
+}))
+app.use(serve(__dirname + '/dist'))
 
 
-app.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
-});
+app.listen(process.env.PORT || 3000, function(){console.log("serving on localhost:3000")});

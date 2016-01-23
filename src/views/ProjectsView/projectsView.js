@@ -11,14 +11,14 @@ class ProjectsView extends Component {
     }
   }
   componentDidMount(){
-    this.ref = base.bindToState('projects', {
+    this.dbref = base.bindToState('projects', {
       context: this,
       state:'projects',
       asArray:true
     })
   }
   componentWillUnmount(){
-    base.removeBinding(this.ref);
+    base.removeBinding(this.dbref);
   }
   onDrop(files){
 		if(files.length > 0 ){
@@ -112,7 +112,7 @@ class ProjectsView extends Component {
 	  </div>
 
 	  <div className="modal fade" id="addProjectForm" aria-hidden="true" aria-labelledby="addProjectForm"
-	  role="dialog" tabindex="-1">
+	  role="dialog" tabIndex="-1">
 	    <div className="modal-dialog">
 	      <div className="modal-content">
 	        <div className="modal-header">

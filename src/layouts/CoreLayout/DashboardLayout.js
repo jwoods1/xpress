@@ -36,9 +36,6 @@ const DashboardLayout = React.createClass({
 		return {user:'no user',
 				role:''};
 	},
-	onDrop(files){
-		console.log('Received files: ', files);
-	},
 	componentWillMount(){
 
 	},
@@ -47,23 +44,27 @@ const DashboardLayout = React.createClass({
 		Breakpoints();
 		Site.run();
 	},
+	componentWillUnmount(){
+
+  },
 	logout(){
-		this.ref = base.unauth();
+		base.unauth();
 		this.history.pushState(null, '/login')
 	},
 	getUserStatus(){
-		this.ref = base.getAuth();
-		if(!this.ref){
+		this.userId = base.getAuth();
+		console.log(this.userId.uid);
+		if(!this.userId){
 			this.history.pushState(null, '/login')
 		}else{
-			this.userData = base.fetch('users/'+this.ref.uid,{
+			base.fetch('users/'+this.userId.uid,{
 				context: this,
 				asArray: false,
 				then(data){
 					this.setState({
 						user:data,
 						role:data.role,
-						id:this.ref.uid
+						id:this.userId.uid
 					})
 				}
 			});

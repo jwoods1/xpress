@@ -28,7 +28,7 @@ export default (
       <IndexRoute component={DashboardView} />
       <Route path='/profile' component={ProfileView} />
       <Route path='/projects' component={ProjectsView} />
-      <Route path='/projects/:projectId' component={ProjectDetailsView} />
+      <Route path='/project/:projectId' component={ProjectDetailsView} />
       <Route path='/accounts' component={AccountsView} />
     </Route>
     <Route path='/404' component={NotFoundView} />

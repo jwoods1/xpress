@@ -13,7 +13,7 @@ const app = koa()
 // (ignoring file requests). If you want to implement isomorphic
 // rendering, you'll want to remove this middleware.
 app.use(require('koa-connect-history-api-fallback')({
-  verbose: false
+  verbose: true
 }))
 
 // ------------------------------------

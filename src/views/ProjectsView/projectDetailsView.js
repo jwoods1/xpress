@@ -53,6 +53,7 @@ class ProjectDetailsView extends Component {
   }
   componentWillUnmount(){
     base.removeBinding(this.ref);
+
   }
   addDocs(){
     let params = this.props.params.projectId.split(':');
@@ -109,17 +110,17 @@ class ProjectDetailsView extends Component {
     }
   }
 	getUserStatus(){
-		this.ref = base.getAuth();
-		if(!this.ref){
+		this.userStatus = base.getAuth();
+		if(!this.userStatus){
 			this.history.pushState(null, '/login')
 		}else{
-			this.userData = base.fetch('users/'+this.ref.uid,{
+			this.userData = base.fetch('users/'+this.userStatus.uid,{
 				context: this,
 				asArray: false,
 				then(data){
 					this.setState({
 						user:data,
-						userId:this.ref.uid
+						userId:this.userStatus.uid
 					})
 				}
 			});
@@ -278,7 +279,7 @@ class ProjectDetailsView extends Component {
        </div>
      </div>
    </div>
-   <div className="modal fade" id="editProjectForm" aria-hidden="true" aria-labelledby="addProjectForm" role="dialog" tabindex="-1">
+   <div className="modal fade" id="editProjectForm" aria-hidden="true" aria-labelledby="addProjectForm" role="dialog" tabIndex="-1">
      <div className="modal-dialog">
        <div className="modal-content">
          <div className="modal-header">
@@ -306,7 +307,7 @@ class ProjectDetailsView extends Component {
        </div>
      </div>
    </div>
-   <div className="modal fade" id="addDocs" aria-hidden="true" aria-labelledby="addDocs" role="dialog" tabindex="-1">
+   <div className="modal fade" id="addDocs" aria-hidden="true" aria-labelledby="addDocs" role="dialog" tabIndex="-1">
      <div className="modal-dialog">
        <div className="modal-content">
          <div className="modal-header">

@@ -3,7 +3,7 @@ import {Link} from 'react-router'
 class ProjectList extends Component {
 
   render() {
-    const projectUrl = '/projects/:'+this.props.link;
+    const projectUrl = '/project/:'+this.props.link;
     return(
       <li>
         <div className="panel">
