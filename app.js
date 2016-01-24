@@ -2,7 +2,8 @@ var app = require('koa')(),
 serve = require('koa-static');
 var route= require('koa-route');
 app.use(require('koa-connect-history-api-fallback')({
-  verbose: true
+  verbose:true,
+  
 }))
 app.use(serve(__dirname + '/dist'))
 
