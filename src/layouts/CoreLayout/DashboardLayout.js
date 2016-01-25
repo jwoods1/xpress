@@ -2,7 +2,6 @@ import React from 'react'
 
 import '../../../Libs/styles/bootstrap.css'
 import '../../../Libs/styles/bootstrap-extend.css'
-import '../../../Libs/global/vendor/sidePanel/slidePanel.css'
 import '../../../Libs/styles/site.css'
 import '../../../Libs/scripts/bootstrap.js'
 import '../../../Libs/global/vendor/breakpoints/breakpoints.js'

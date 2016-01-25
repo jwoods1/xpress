@@ -7,8 +7,14 @@ class ProjectsView extends Component {
     super(props);
     this.state = {
       projects:[],
-      files:[]
+      files:[],
+      clients: [],
+      user:{},
+
     }
+    this.getClients = this.getClients.bind(this);
+    this.getUserStatus = this.getUserStatus.bind(this);
+
   }
   componentDidMount(){
     this.dbref = base.bindToState('projects', {
@@ -16,10 +22,29 @@ class ProjectsView extends Component {
       state:'projects',
       asArray:true
     })
+    this.getClients();
+    this.getUserStatus();
+    console.log(this.state);
   }
   componentWillUnmount(){
     base.removeBinding(this.dbref);
   }
+  getUserStatus(){
+		this.userStatus = base.getAuth();
+		if(!this.userStatus){
+			this.history.pushState(null, '/login')
+		}else{
+			this.userData = base.fetch('users/'+this.userStatus.uid,{
+				context: this,
+				asArray: false,
+				then(data){
+					this.setState({
+						user:data
+					})
+				}
+			});
+		}
+	}
   onDrop(files){
 		if(files.length > 0 ){
 			var file = files[0];
@@ -33,7 +58,20 @@ class ProjectsView extends Component {
 			})
     }
   }
-
+getClients(){
+  base.fetch('users', {
+    context: this,
+    asArray:true,
+    queries:{
+      orderByChild:'role',
+      equalTo:'client'
+    },then(data){
+      this.setState({
+        clients: data
+      })
+    }
+  })
+}
  createProject(){
   let Refs = this.refs
   let newFiles = this.state.files.slice();
@@ -84,16 +122,24 @@ class ProjectsView extends Component {
  }
 
 	render() {
+    var addProjectButton = "";
+    if(this.state.user){
+      if(this.state.user.role === "client"){
+        addProjectButton = ""
+      }else{
+        addProjectButton = <button className="btn-raised btn btn-success btn-floating" data-target="#addProjectForm"
+        data-toggle="modal" type="button">
+          <i className="icon wb-plus" aria-hidden="true"></i>
+        </button>;
+      }
+    }
 		return (
 	<div>
 		<div>
 	    <div className="page-header">
 	      <h1 className="page-title">Projects</h1>
 	      <div className="page-header-actions">
-          <button className="btn-raised btn btn-success btn-floating" data-target="#addProjectForm"
-      	  data-toggle="modal" type="button">
-      	    <i className="icon wb-plus" aria-hidden="true"></i>
-      	  </button>
+          {addProjectButton}
 	      </div>
 	    </div>
 	    <div className="page-content">
@@ -136,7 +182,13 @@ class ProjectsView extends Component {
 	            </div>
               <div className="form-group">
 	              <label className="control-label margin-bottom-15" htmlFor="name">Client:</label>
-                  <input className="form-control" type="text" ref="projectClient" />
+                  <select className="form-control" type="text" ref="projectClient">
+                    {
+                      this.state.clients.map((item, index) => {
+                        return <option key={index} value={item.key} >{item.name}</option>
+                      })
+                    }
+                  </select>
 	            </div>
               <div className="form-group">
 	              <label className="control-label margin-bottom-15" htmlFor="name">Status:</label>
@@ -163,7 +215,6 @@ class ProjectsView extends Component {
 	      </div>
 	    </div>
 	  </div>
-		<a href="external.html" data-slidepanel="panel">Show Panel</a>
  </div>
 		);
 	}

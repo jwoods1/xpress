@@ -6696,6 +6696,7 @@ div.widget-title {
   width: 100%;
   max-width: 100%;
   margin-bottom: 0;
+  height: 200px;
 }
 /* Sub-object `overlay-panel`
  ========================================================================== */
