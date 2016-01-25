@@ -41,15 +41,37 @@ class Card {
 class TaskBoardView extends Component {
   constructor(props){
     super(props);
+    this.state={
+      tasks:[]
+    }
     this.addTaskItem = this.addTaskItem.bind(this);
     this.updateItem = this.updateItem.bind(this);
     this.removeItem = this.removeItem.bind(this);
 
   }
 componentDidMount(){
-
+  let params = this.props.projectId.split(':');
+  let projectId = params[1];
+  let query = 'projects/' + projectId +'/tasks';
+  this.taskBoards = base.syncState(query , {
+    context: this,
+    state: 'tasks',
+    asArray: true
+  })
+}
+componentWillUnmount(){
+  base.removeBinding(this.taskBoards);
 }
 addTaskItem(board, task){
+  let newTask = {
+    label:task,
+    complete:false,
+    board: board
+  }
+  this.setState({
+    tasks: this.state.tasks.concat([newTask])
+  })
+  /*
   let params = this.props.projectId.split(':');
   let projectId = params[1];
   let query = 'projects/' + projectId +'/taskboards/' + board +'/tasks';
@@ -62,31 +84,35 @@ addTaskItem(board, task){
     },then(){
       console.log('updated');
     }
-  })
+  })*/
 }
 removeItem(board, task){
-  let params = this.props.projectId.split(':');
-  let projectId = params[1];
-  let query = 'projects/' + projectId +'/taskboards/' + board +'/tasks/'+task;
-  base.post(query, {
-    data:{
-    }
+  let newArray = this.state.tasks.concat([]);
+  newArray.splice(task, 1);
+
+  this.setState({
+    tasks:newArray
   })
 }
 updateItem(board, key, checked, label){
-  let params = this.props.projectId.split(':');
-  let projectId = params[1];
-  let query = 'projects/' + projectId +'/taskboards/' + board +'/tasks/' + key +'/task';
-  base.post(query, {
-    data:{
-      complete:checked,
-      label:label
-    },then(){
-      console.log('updated');
-    }
+  console.log(checked);
+  let update = this.state.tasks.concat([]);
+  update[key].complete = checked;
+
+  this.setState({
+    tasks: update
   })
 }
 	render() {
+    let backLogTasks = this.state.tasks.filter((i) => {
+      return i.board == 'Backlog'
+    });
+    let compoleteTasks = this.state.tasks.filter((i) => {
+      return i.board == 'Completed'
+    });
+    let doingTasks = this.state.tasks.filter((i) => {
+      return i.board == 'Doing'
+    });
 		return (
 		  <div className="Taskboard">
 			  <div className="page-header">
@@ -94,9 +120,9 @@ updateItem(board, key, checked, label){
 			  </div>
 			  <div className="page-content">
 			    <ul className="taskboard-stages" id="taskboard-stages">
-            <TaskboardCard key="backLog" title={this.props.boards.taskboards.Backlog.title} update={this.updateItem} remove={this.removeItem} tasks={this.props.boards.taskboards.Backlog.tasks} board={this.props.boards.taskboards.Backlog} addTaskItem={this.addTaskItem}/>
-            <TaskboardCard key="doingLog" title={this.props.boards.taskboards.Doing.title} update={this.updateItem} remove={this.removeItem} tasks={this.props.boards.taskboards.Doing.tasks} board={this.props.boards.taskboards.Doing} addTaskItem={this.addTaskItem}/>
-            <TaskboardCard key="completeLog"title={this.props.boards.taskboards.Completed.title}  update={this.updateItem} remove={this.removeItem} tasks={this.props.boards.taskboards.Completed.tasks} board={this.props.boards.taskboards.Completed}  addTaskItem={this.addTaskItem} />
+            <TaskboardCard key="backLog" title={this.props.boards.taskboards.Backlog.title} update={this.updateItem} remove={this.removeItem} tasks={backLogTasks} board={this.props.boards.taskboards.Backlog} addTaskItem={this.addTaskItem}/>
+            <TaskboardCard key="doingLog" title={this.props.boards.taskboards.Doing.title} update={this.updateItem} remove={this.removeItem} tasks={doingTasks} board={this.props.boards.taskboards.Doing} addTaskItem={this.addTaskItem}/>
+            <TaskboardCard key="completeLog"title={this.props.boards.taskboards.Completed.title}  update={this.updateItem} remove={this.removeItem} tasks={compoleteTasks} board={this.props.boards.taskboards.Completed}  addTaskItem={this.addTaskItem} />
 			    </ul>
 			  </div>
 			</div>

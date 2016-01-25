@@ -12,6 +12,7 @@ class DashboardView extends Component{
 	}
 	componentDidMount(){
 		this.getUserStatus()
+		this.getActivities()
 	}
 	getUserStatus(){
 		this.ref = base.getAuth();
@@ -31,8 +32,21 @@ class DashboardView extends Component{
 			});
 		}
 	}
+	getActivities(){
+		base.fetch('projects', {
+			context: this,
+			asArray:true,
+			queries:{
+				orderByChild:'date'
+
+			},
+			then(data){
+				console.log(data);
+			}
+		})
+	}
 	render() {
-	
+
 			return (
 				<div>
 					<OverView user={this.state.user}/>

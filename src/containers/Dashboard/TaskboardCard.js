@@ -4,20 +4,12 @@ import Task from 'components/TaskBoard/task'
 class TaskboardCard extends Component {
   constructor(props) {
       super(props);
-      this.state = {
-        tasks:{},
-        board:''
-      };
+
       this.update = this.update.bind(this);
       this.mapObject = this.mapObject.bind(this);
     }
 componentWillReceiveProps(nextProps){
-  if(nextProps.tasks){
-    this.setState({
-      tasks:nextProps.tasks,
-      board:nextProps.board
-    })
-  }
+
 
 }
   addItem(){
@@ -38,7 +30,7 @@ componentWillReceiveProps(nextProps){
   render() {
     var update = this.update;
     var remove = this.props.remove;
-    var board = this.state.board;
+    var board = this.props.board;
     return(
       <li className="taskboard-stage">
       	<header className="taskboard-stage-header">
@@ -47,10 +39,14 @@ componentWillReceiveProps(nextProps){
       	<div className="taskboard-stage-content">
           <ul className="list-group taskboard-list">
             {
+              /*
               this.mapObject(this.state.tasks, function(key, value){
                 console.log(key);
                 console.log(value);
                 return <Task label={value.task.label} item={key} complete={value.task.complete} userImg={value.task.userImg} update={update} remove={remove} board={board}  key={key} />
+              })*/
+              this.props.tasks.map((item, index) => {
+                return <Task label={item.label} item={index} complete={item.complete} userImg={item.userImg} update={update} remove={remove} board={board}  key={index} />
               })
             }
           </ul>
