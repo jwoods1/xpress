@@ -3,6 +3,7 @@ import {base, parse} from '../../redux/utils/firebaseUtil'
 import {DragDropContext} from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 import TaskboardCard from 'containers/Dashboard/TaskboardCard'
+import moment from 'moment'
 import "../../../Libs/styles/taskboard.scss"
 
 
@@ -47,9 +48,20 @@ addTaskItem(board, task){
       user:user
     }
   })
+  base.push('activities', {
+    data:{
+      action:"Task Added",
+      project:this.props.boards.title,
+      label:task,
+      board: board,
+      complete:false,
+      user:user,
+      updated:moment().format("dddd, MMMM Do YYYY, h:mm:ss a"),
+      timeStamp:moment().format()
+    }
+  })
 }
 moveItem(item){
-  console.log(item);
   let params = this.props.projectId.split(':');
   let projectId = params[1];
   let query = 'projects/' + projectId +'/tasks/'+ item.key;
@@ -61,22 +73,64 @@ moveItem(item){
       user:item.user
     }
   })
-}
-removeItem(board, task){
-  let newArray = this.state.tasks.concat([]);
-  newArray.splice(task, 1);
-
-  this.setState({
-    tasks:newArray
+  base.push('activities', {
+    data:{
+      action:"Task updated",
+      project:this.props.boards.title,
+      label:item.label,
+      board: item.board,
+      complete:item.complete,
+      user:item.user,
+      updated:moment().format("dddd, MMMM Do YYYY, h:mm:ss a"),
+      timeStamp:moment().format()
+    }
   })
 }
-updateItem(board, key, checked, label){
-  console.log(checked);
-  let update = this.state.tasks.concat([]);
-  update[key].complete = checked;
-
-  this.setState({
-    tasks: update
+removeItem(item){
+  console.log(item);
+  let params = this.props.projectId.split(':');
+  let projectId = params[1];
+  let query = 'projects/' + projectId +'/tasks/'+ item.key;
+  base.post(query, {
+    data:{
+    }
+  })
+  base.push('activities', {
+    data:{
+      action:"Task Deleted",
+      project:this.props.boards.title,
+      label:item.label,
+      board: item.board,
+      complete:item.complete,
+      user:item.user,
+      updated:moment().format("dddd, MMMM Do YYYY, h:mm:ss a"),
+      timeStamp:moment().format()
+    }
+  })
+}
+updateItem(item, checked){
+  let params = this.props.projectId.split(':');
+  let projectId = params[1];
+  let query = 'projects/' + projectId +'/tasks/'+ item.key;
+  base.post(query, {
+    data:{
+      label:item.label,
+      board: item.board,
+      complete:checked,
+      user:item.user
+    }
+  })
+  base.push('activities', {
+    data:{
+      action:"Task updated",
+      project:this.props.boards.title,
+      label:item.label,
+      board: item.board,
+      complete:checked,
+      user:item.user,
+      updated:moment().format("dddd, MMMM Do YYYY, h:mm:ss a"),
+      timeStamp:moment().format()
+    }
   })
 }
 	render() {

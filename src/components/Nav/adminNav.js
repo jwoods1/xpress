@@ -11,7 +11,7 @@ class SideNav extends Component {
 						<i className="site-menu-icon wb-dashboard" aria-hidden="true"></i>
 						<span className="site-menu-title">Dashboard</span>
 						<div className="site-menu-badge">
-						<span className="badge badge-success">3</span>
+						<span className="badge badge-success">{this.props.count}</span>
 						</div>
 					</Link>
 				</li>

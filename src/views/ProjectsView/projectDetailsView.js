@@ -150,6 +150,13 @@ class ProjectDetailsView extends Component {
 
 		}
 	})
+	base.push('activities', {
+		data:{
+			action:"Project Updated",
+			project:this.state.project.title,
+			user:this.state.user
+		}
+	})
 
 	this.refs.projectName.value = '';
 	this.refs.projectDiscription.value = '';
@@ -171,6 +178,16 @@ class ProjectDetailsView extends Component {
 
  		}
  	})
+	base.push('activities',{
+		data:{
+			action:"Comment added",
+			project:this.state.project.title,
+			user:this.state.user,
+			comment: comment,
+			updated:moment().format("dddd, MMMM Do YYYY, h:mm:ss a"),
+			timeStamp:moment().format()
+		}
+	})
  	this.refs.userComment.value= '';
  }
 	render() {

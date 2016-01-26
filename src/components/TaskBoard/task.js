@@ -27,14 +27,12 @@ class Task extends Component {
       this.removeItem = this.removeItem.bind(this);
     }
   isChecked(){
-    let item = this.props.item;
+    let item = this.props.task;
     let checked = this.refs.taskChecked.checked;
-    let board = this.props.board.title;
-    let label = this.props.label
-    this.props.update(board, item, checked, label)
+    this.props.update(item, checked)
   }
   removeItem(){
-    this.props.remove(this.props.board.title, this.props.item)
+    this.props.remove(this.props.task)
   }
   render() {
     const {connectDragSource, isDragging } = this.props;

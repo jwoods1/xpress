@@ -8,6 +8,8 @@ class OverView extends Component{
 	}
 
 	render() {
+		let count = this.props.activities.length;
+		console.log(this.props.activities);
 			return (
         	<div>
 					 <div className="page-content container-fluid">
@@ -16,7 +18,7 @@ class OverView extends Component{
 			          <div className="widget widget-shadow text-center">
 			            <div className="widget-header">
 										<br/>
-			              <ProfileWidget avatar={this.props.user.avatar} job={this.props.user.organization} userName={this.props.user.name} bio="Super cool guy, that likes to code."/>
+			              <ProfileWidget avatar={this.props.user.avatar} job={this.props.user.organization} userName={this.props.user.name} bio={this.props.user.bio}/>
 			            </div>
 			          </div>
 			        </div>
@@ -25,13 +27,17 @@ class OverView extends Component{
 			            <div className="panel-body nav-tabs-animate">
 			              <ul className="nav nav-tabs nav-tabs-line" data-plugin="nav-tabs" role="tablist">
 			                <li className="active" role="presentation"><a data-toggle="tab" href="#activities" aria-controls="activities"
-			                  role="tab">Activities <span className="badge badge-danger">{this.props.acivityCount}</span></a></li>
+			                  role="tab">Activities <span className="badge badge-danger">{count}</span></a></li>
 			              </ul>
 
 			              <div className="tab-content">
 			                <div className="tab-pane active animation-slide-left" id="activities" role="tabpanel">
 			                  <ul className="list-group">
-			          					<DashboardItem avatar="http://files.parsetfss.com/fd04cac6-ed59-4388-88cb-2dfaa9fa4ab6/tfss-9e750919-9d66-498a-abcb-e2dbe44a88b6-me.jpg" status="Updated Project 1234" author="Jwoo" brief="Updated project to display cool stuff."/ >
+													{
+														this.props.activities.reverse().map((item,index) => {
+															return <DashboardItem item={item}/ >
+														})
+													}
 			                  </ul>
 			                </div>
 			              </div>

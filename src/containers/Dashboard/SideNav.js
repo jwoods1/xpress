@@ -29,9 +29,9 @@ const SideNav = React.createClass({
 							<div>
 							{(() => {
 								switch (this.props.role) {
-								case "admin":   return <AdminNav />;
-								case "dev": return <DevNav/>;
-								default:      return <ClientNav/>;
+									case "admin":   return <AdminNav count={this.props.count} />;
+									case "dev": return <DevNav count={this.props.count}/>;
+									default:      return <ClientNav count={this.props.count}/>;
 								}
      						 })()}
 							</div>

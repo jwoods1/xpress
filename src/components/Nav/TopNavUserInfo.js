@@ -23,28 +23,6 @@ class TopNavUserInfo extends Component {
 							</li>
 							</ul>
 						</li>
-						<li className="dropdown">
-							<a data-toggle="dropdown" href="javascript:void(0)" title="Notifications" aria-expanded="false"
-							data-animation="scale-up" role="button">
-							<i className="icon wb-bell" aria-hidden="true"></i>
-							<span className="badge badge-danger up">{this.props.newNotify}</span>
-							</a>
-							<ul className="dropdown-menu dropdown-menu-right dropdown-menu-media" role="menu">
-								<li className="dropdown-menu-header" role="presentation">
-									<h5>NOTIFICATIONS</h5>
-									<span className="label label-round label-danger">{this.props.newNotify}</span>
-								</li>
-								<NotifyWidget icon={this.props.notifyIcon} text={this.props.notifyText} time={this.props.notifyTime} newNotify={this.props.newNotify} />
-								<li className="dropdown-menu-footer" role="presentation">
-					        <a className="dropdown-menu-footer-btn" href="javascript:void(0)" role="button">
-					        <i className="icon wb-settings" aria-hidden="true"></i>
-					        </a>
-					        <a href="javascript:void(0)" role="menuitem">
-					          All notifications
-					        </a>
-					      </li>
-							</ul>
-						</li>
 						</ul>
 		)
 	}

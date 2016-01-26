@@ -1,18 +1,23 @@
 import React, {Component} from 'react'
 import {base, parse, Ref} from '../../redux/utils/firebaseUtil'
 import OverView from '../../containers/Dashboard/OverView'
-
+import moment from 'moment'
 class DashboardView extends Component{
 	constructor(props){
 		super(props)
 		this.state={
 			user:{},
-			userId:""
+			userId:"",
+			activities:[]
 		}
 	}
 	componentDidMount(){
 		this.getUserStatus()
 		this.getActivities()
+		console.log(this.state);
+	}
+	componentWillUnmount(){
+		base.removeBinding(this.act);
 	}
 	getUserStatus(){
 		this.ref = base.getAuth();
@@ -23,7 +28,6 @@ class DashboardView extends Component{
 				context: this,
 				asArray: false,
 				then(data){
-					console.log(data);
 					this.setState({
 						user:data,
 						userId:this.ref.uid
@@ -33,23 +37,20 @@ class DashboardView extends Component{
 		}
 	}
 	getActivities(){
-		base.fetch('projects', {
-			context: this,
-			asArray:true,
-			queries:{
-				orderByChild:'date'
-
-			},
-			then(data){
-				console.log(data);
-			}
+		this.act = base.bindToState('activities', {
+					context: this,
+					asArray:true,
+					state:'activities'
 		})
 	}
 	render() {
-
+		var past = moment().subtract(3, 'days');
+		let currentActivies = this.state.activities.filter((i) => {
+      return moment(i.timeStamp).isAfter(past)
+    });
 			return (
 				<div>
-					<OverView user={this.state.user}/>
+					<OverView user={this.state.user} activities={currentActivies}/>
 				</div>
 			)
 		}

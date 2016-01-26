@@ -7,15 +7,19 @@ class DashboardItem extends React.Component {
         <div className="media">
           <div className="media-left">
             <a className="avatar" href="javascript:void(0)">
-              <img className="img-responsive" src={this.props.avatar} alt={this.props.author} />
+              <img className="img-responsive" src={this.props.item.user.avatar} alt={this.props.item.user.name} />
             </a>
           </div>
           <div className="media-body">
-            <h4 className="media-heading">{this.props.author}{" "}
-              <span>{this.props.status}</span>
+            <h4 className="media-heading">
+              <span>Project: {this.props.item.project}</span>
+              <hr/>
+              <span>{this.props.item.user.name}{' '}</span>
+              <span>{this.props.item.action}{' '}</span>
             </h4>
-            <small>{this.props.time}</small>
-            <div className="profile-brief">“{this.props.brief}”</div>
+            <small>{this.props.item.updated}</small>
+            <div className="profile-brief">“{this.props.item.label} {this.props.item.comment}”</div>
+            <small>Completed: {this.props.item.complete}</small>
           </div>
         </div>
       </li>

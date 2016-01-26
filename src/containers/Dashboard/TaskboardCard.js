@@ -43,7 +43,7 @@ class TaskboardCard extends Component {
             {
 
               this.props.tasks.map((item, index) => {
-                return <Task label={item.label} item={item.key} complete={item.complete} user={item.user} update={this.props.update} remove={this.props.remove} board={this.props.board}  key={index} />
+                return <Task label={item.label} item={item.key} complete={item.complete} task={item} user={item.user} update={this.props.update} remove={this.props.remove} board={this.props.board}  key={index} />
               })
             }
           </ul>

@@ -25,7 +25,7 @@ import { History } from 'react-router'
 import TopNav from '../../components/Nav/TopNav'
 import SideNav from '../../containers/Dashboard/SideNav'
 import OverView from '../../containers/Dashboard/OverView'
-
+import moment from 'moment'
 
 
 const DashboardLayout = React.createClass({
@@ -33,18 +33,17 @@ const DashboardLayout = React.createClass({
 
 	getInitialState(){
 		return {user:'no user',
-				role:''};
-	},
-	componentWillMount(){
-
+				role:'',
+			actCount:0};
 	},
 	componentDidMount(){
 		this.getUserStatus();
 		Breakpoints();
 		Site.run();
+		this.getActivitiesCount()
 	},
 	componentWillUnmount(){
-
+		base.removeBinding(this.act);
   },
 	logout(){
 		base.unauth();
@@ -69,11 +68,26 @@ const DashboardLayout = React.createClass({
 			});
 		}
 	},
+	getActivitiesCount(){
+		var past = moment().subtract(3, 'days');
+		this.act = base.listenTo('activities', {
+					context: this,
+					asArray:true,
+					then(data){
+						let currentActivies = data.filter((i) => {
+				      return moment(i.timeStamp).isAfter(past)
+				    });
+						this.setState({
+							actCount:currentActivies.length
+						})
+					}
+		})
+	},
 	render() {
 			return (
 				<div className="dashboard">
 					<TopNav user={this.state.user} logout={this.logout}/>
-					<SideNav role={this.state.role}/>
+					<SideNav role={this.state.role} count={this.state.actCount}/>
 					<div className="page animsition">
 					{this.props.children}
 					</div>
