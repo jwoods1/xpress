@@ -1,10 +1,30 @@
-import React,{Component} from 'react'
+import React,{Component, PropTypes} from 'react'
+import { ItemTypes } from '../../views/TaskBoardView/taskContraints'
+import { DragSource } from 'react-dnd'
 
+const taskSource = {
+  beginDrag(props){
+    return{
+      'key': props.item,
+      'board':props.board.title,
+      'label':props.label,
+      'user' :props.user,
+      'complete': props.complete
+    };
+  }
+};
+
+function collect(connect, monitor){
+  return{
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  }
+}
 class Task extends Component {
   constructor(props) {
       super(props);
       this.isChecked = this.isChecked.bind(this);
-      this.remove = this.remove.bind(this);
+      this.removeItem = this.removeItem.bind(this);
     }
   isChecked(){
     let item = this.props.item;
@@ -13,23 +33,22 @@ class Task extends Component {
     let label = this.props.label
     this.props.update(board, item, checked, label)
   }
-  remove(){
-    let board = this.props.board.title;
-    let item = this.props.item;
-    console.log('clicked remove');
-    this.props.remove(board, item )
+  removeItem(){
+    this.props.remove(this.props.board.title, this.props.item)
   }
   render() {
-
-    return(
+    const {connectDragSource, isDragging } = this.props;
+    return connectDragSource(
       <li className="list-group-item priority-normal" data-taskboard="slidePanel" data-url="panel.tpl">
-        <span ><i onClick={this.remove} className="icon wb-minus-circle"></i></span>
         <div className="checkbox-custom checkbox-primary"><input onChange={this.isChecked} checked={this.props.complete} type="checkbox" ref="taskChecked" name="checkbox"/>
           <label className="task-title">{this.props.label}</label>
         </div>
+        <div className="task-badges">
+          <span onClick={this.removeItem} className="task-badge task-badge-subtask icon wb-list-bulleted"></span>
+        </div>
         <ul className="task-members">
           <li>
-            <img className="avatar avatar-sm" src={this.props.userImg}/>
+            <img className="avatar avatar-sm" src={this.props.user.avatar}/>
           </li>
         </ul>
       </li>
@@ -37,4 +56,12 @@ class Task extends Component {
   }
 }
 
-export default Task;
+Task.propTypes = {
+  connectDragSource: PropTypes.func.isRequired,
+  isDragging: PropTypes.bool.isRequired,
+  userImg: PropTypes.string,
+  complete: PropTypes.bool,
+  remove: PropTypes.func,
+  update: PropTypes.func
+}
+export default DragSource(ItemTypes.TASK, taskSource, collect)(Task);
