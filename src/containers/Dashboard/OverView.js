@@ -9,7 +9,6 @@ class OverView extends Component{
 
 	render() {
 		let count = this.props.activities.length;
-		console.log(this.props.activities);
 			return (
         	<div>
 					 <div className="page-content container-fluid">

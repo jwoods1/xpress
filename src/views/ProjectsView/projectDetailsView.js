@@ -39,6 +39,8 @@ class ProjectDetailsView extends Component {
 			userId:''
     }
     this.addDocs = this.addDocs.bind(this);
+		this.setEdit = this.setEdit.bind(this);
+
   }
   componentDidMount(){
     let params = this.props.params.projectId.split(':');
@@ -50,6 +52,7 @@ class ProjectDetailsView extends Component {
       asArray:false
     })
 		this.getUserStatus()
+
   }
   componentWillUnmount(){
     base.removeBinding(this.ref);
@@ -125,8 +128,8 @@ class ProjectDetailsView extends Component {
 				}
 			});
 		}
-    console.log(this.state.project);
-	}
+
+  }
  updateProject(){
   let params = this.props.params.projectId.split(':');
   let projectId = params[1];
@@ -161,6 +164,10 @@ class ProjectDetailsView extends Component {
 	this.refs.projectName.value = '';
 	this.refs.projectDiscription.value = '';
  }
+ setEdit(){
+	 this.refs.projectName.value = this.state.project.title;
+	 this.refs.projectDiscription.value = this.state.project.discription;
+ }
  uploadComment(){
 	 let comment = this.refs.userComment.value;
 	 let params = this.props.params.projectId.split(':');
@@ -191,20 +198,17 @@ class ProjectDetailsView extends Component {
  	this.refs.userComment.value= '';
  }
 	render() {
+
 		return (
  <div className="col-md-12">
    <div className="example example-well">
      <div className="page-header">
        <h1 className="page-title">Project {this.state.project.title}</h1>
        <div className="page-header-actions">
-         <button type="button" className="btn btn-sm btn-icon btn-default btn-outline btn-round"
+         <button type="button" onClick={this.setEdit} className="btn btn-sm btn-icon btn-default btn-outline btn-round"
            data-target="#editProjectForm"
           data-toggle="modal"  data-original-title="Edit">
            <i className="icon wb-pencil" aria-hidden="true"></i>
-         </button>
-         <button type="button" className="btn btn-sm btn-icon btn-default btn-outline btn-round"
-         data-toggle="tooltip" data-original-title="Refresh">
-           <i className="icon wb-refresh" aria-hidden="true"></i>
          </button>
        </div>
      </div>
@@ -308,11 +312,11 @@ class ProjectDetailsView extends Component {
            <form action="#" method="post" role="form">
              <div className="form-group">
                <label className="control-label margin-bottom-15" htmlFor="name">Project name:</label>
-               <input type="text" className="form-control" ref="projectName" value={this.state.project.title} id="name" name="name" placeholder="Project name" />
+               <input type="text" className="form-control" ref="projectName"  id="name" name="name" placeholder="Project name" />
              </div>
              <div className="form-group">
                <label className="control-label margin-bottom-15" htmlFor="name">Project description:</label>
-               <textarea className="form-control mb-sm" value={this.state.project.discription} ref="projectDiscription" placeholder="Project description."
+               <textarea className="form-control mb-sm"  ref="projectDiscription" placeholder="Project description."
                rows="10" ></textarea>
              </div>
            </form>

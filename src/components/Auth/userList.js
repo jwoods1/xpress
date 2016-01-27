@@ -16,7 +16,8 @@ class UserList extends Component {
       <td>{this.props.name} </td>
       <td>{this.props.org} </td>
       <td>{this.props.role} </td>
-      <td className="text-warning" onClick={this.editEvent.bind(this)} >Edit</td>
+      <td className="text-warning"  data-target="#editUser"
+      data-toggle="modal"onClick={this.editEvent.bind(this)} >Edit</td>
       <td className="text-danger" onClick={this.removeEvent.bind(this)} >Remove</td>
       </tr>
     )
