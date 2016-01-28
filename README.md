@@ -29,6 +29,11 @@ $ npm start                     # Compile and launch
 * `npm run deploy`- Runs linter, tests, and then, on success, compiles your application to disk.
 * `npm run lint`- Lint all `.js` files.
 
+### Heroku deployment
+- Heroku is on a git hook listening on the master branch.
+- Anything pushed to master branch will be pushed to the live heroku account.
+
+
 ### Configuration
 
 Basic project configuration can be found in `~/config/_base.js`. Here you'll be able to redefine your `src` and `dist` directories, adjust compilation settings, tweak your vendor dependencies, and more. For the most part, you should be able to make changes in here **without ever having to touch the webpack build configuration**. If you need environment-specific overrides, create a file with the name of target `NODE_ENV` prefixed by an `_` in `~/config` (see `~/config/_production.js` for an example).
