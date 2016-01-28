@@ -18,10 +18,7 @@ class ProfileWidget extends Component {
 
 }
 ProfileWidget.propTypes = {
-  avatar: PropTypes.string,
-  userName: PropTypes.string.isRequired,
-  job: PropTypes.string.isRequired,
-  bio: PropTypes.string.isRequired
+
 }
 
 export default ProfileWidget

@@ -14,7 +14,6 @@ class DashboardView extends Component{
 	componentDidMount(){
 		this.getUserStatus()
 		this.getActivities()
-		console.log(this.state);
 	}
 	componentWillUnmount(){
 		base.removeBinding(this.act);
@@ -44,7 +43,7 @@ class DashboardView extends Component{
 		})
 	}
 	render() {
-		var past = moment().subtract(3, 'days');
+		var past = moment().subtract(1, 'days');
 		let currentActivies = this.state.activities.filter((i) => {
       return moment(i.timeStamp).isAfter(past)
     });

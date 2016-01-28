@@ -32,6 +32,7 @@ updateUser(){
     let bio = this.refs.bio.value ;
 		let fullName = this.refs.fullName.value;
 		let org = this.refs.organization.value;
+		let avatar = this.state.user.avatar;
       this.state.files.map((item, index) => {
         var parseFile = new parse.File(item.name, item);
         parseFile.save().then(function(url){
@@ -39,7 +40,7 @@ updateUser(){
             data:{
                 name:fullName,
                 organization:org,
-                avatar: url._url,
+                avatar: url._url ? url._url: avatar,
                 bio: bio,
 								role:userRole
 

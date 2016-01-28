@@ -24,7 +24,6 @@ class ProjectsView extends Component {
     })
     this.getClients();
     this.getUserStatus();
-    console.log(this.state);
   }
   componentWillUnmount(){
     base.removeBinding(this.dbref);
@@ -78,7 +77,6 @@ getClients(){
   let alert = this.alertMessage;
   let parseFile = new parse.File(newFiles[0].name, newFiles[0]);
   parseFile.save().then(function(url){
-    console.log(url);
     base.push('projects',{
         data:{
           title: Refs.projectName.value,

@@ -2,12 +2,13 @@ import React, {PropTypes} from 'react';
 
 class DashboardItem extends React.Component {
   render(){
+    let imgUser = this.props.item.user.avatar.split(':');
     return(
       <li className="list-group-item">
         <div className="media">
           <div className="media-left">
             <a className="avatar" href="javascript:void(0)">
-              <img className="img-responsive" src={this.props.item.user.avatar} alt={this.props.item.user.name} />
+              <img className="img-responsive" src={imgUser[1]} alt={this.props.item.user.name} />
             </a>
           </div>
           <div className="media-body">
@@ -27,9 +28,6 @@ class DashboardItem extends React.Component {
   }
 }
 DashboardItem.propTypes = {
-  avatar: PropTypes.string,
-  status: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
-  brief: PropTypes.string.isRequired
+
 }
 export default DashboardItem

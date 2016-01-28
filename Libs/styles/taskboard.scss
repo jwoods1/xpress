@@ -249,6 +249,7 @@
 	  height: -webkit-calc(100% - 49px);
 	  height:         calc(100% - 49px);
 	  overflow: auto;
+		background: #f7f7f7;
 	}
 	.taskboard-stage-content .action-wrap {
 	  padding: 20px;
@@ -284,8 +285,9 @@
 	  margin-bottom: 0;
 	}
 	.taskboard-list .list-group-item {
+		background:#e0e0e0;
 	  padding: 12px 20px;
-	  cursor: pointer;
+	  cursor: move;
 	  border-top: 1px solid #e4eaec;
 	  border-bottom: 1px solid #e4eaec;
 	  border-left: 3px solid transparent;

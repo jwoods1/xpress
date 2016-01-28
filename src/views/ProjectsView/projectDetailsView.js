@@ -339,18 +339,19 @@ class ProjectDetailsView extends Component {
          <div className="modal-body">
            <form action="#" method="post" role="form">
 
-             <Dropzone onDrop={this.onDrop.bind(this)}>
+             <Dropzone style={{width:100+'%', padding:5+'px', height:250+'px', border:2+'px dotted'}} onDrop={this.onDrop.bind(this)}>
                <div>Try dropping some files here, or click to select files to upload.</div>
               </Dropzone>
+							<hr/>
               <div className="form-group">
-                <label className="control-label margin-bottom-15" htmlFor="Comment">Comment:</label>
+                <label className="control-label margin-bottom-15" htmlFor="Comment"><h3>Comment:</h3></label>
                 <textarea className="maxLength-textarea form-control mb-sm" ref="docsComment" placeholder="Comment on document"
                 rows="2" maxLength="225" data-plugin="maxLength"></textarea>
               </div>
            </form>
          </div>
          <div className="modal-footer text-right">
-           <button onClick={this.addDocs.bind(this)} className="btn btn-primary" data-dismiss="modal" type="button">Create</button>
+           <button onClick={this.addDocs.bind(this)} className="btn btn-primary" data-dismiss="modal" type="button">Upload</button>
            <a className="btn btn-sm btn-white" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
          </div>
        </div>

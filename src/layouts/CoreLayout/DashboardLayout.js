@@ -69,7 +69,7 @@ const DashboardLayout = React.createClass({
 		}
 	},
 	getActivitiesCount(){
-		var past = moment().subtract(3, 'days');
+		var past = moment().subtract(1, 'days');
 		this.act = base.listenTo('activities', {
 					context: this,
 					asArray:true,

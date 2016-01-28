@@ -66,7 +66,6 @@ const AccountsView = React.createClass({
 				this.setState({
 					contacts:data
 				})
-				console.log(data);
 			}
 		});
 	},
@@ -85,19 +84,23 @@ const AccountsView = React.createClass({
 		}, this.userHandler);
 	},
 	removeUser(key){
-	 	base.post('users/'+key.key, {
-			data:{
+		let response = confirm("Are you sure you want to delete "+key.name+"?");
+		if(response){
+			base.post('users/'+key.key, {
+				data:{
 
-			}
-		})
-			this.alertMessage("User Deleted");
+				}
+			})
+				this.alertMessage("User Deleted");
+		}
 	},
 	setEditUser(key){
 		this.refs.editName.value = key.name;
 		this.refs.editOrganization.value = key.organization;
 		this.refs.editRole.value = key.role;
 		this.refs.editKey.value = key.key;
-		this.refs.editAvatar.value = key.avatar;
+		this.refs.editAvatar.value = key.avatar ? key.avatar : " ";
+		this.refs.editBio.value = key.bio ? key.bio : " ";
 	},
 	editUser(){
 		let name = 	this.refs.editName.value;
@@ -105,6 +108,7 @@ const AccountsView = React.createClass({
 		let key = 'users/' + this.refs.editKey.value;
 		let role = this.refs.editRole.value;
 		let avatar = this.refs.editAvatar.value ? this.refs.editAvatar.value : " ";
+		let bio = this.refs.editBio.value ? this.refs.editBio.value : " ";
 
 		base.post(key,{
 			data:{
@@ -255,10 +259,11 @@ const AccountsView = React.createClass({
 											</select>
 											<input type="hidden" className="hidden" ref="editKey" placeholder="" />
 											<input type="hidden" className="hidden" ref="editAvatar" placeholder="" />
+												<input type="hidden" className="hidden" ref="editBio" placeholder="" />
 				            </form>
 				          </div>
 				          <div className="modal-footer text-right">
-				            <button onClick={this.editUser} className="btn btn-primary" data-dismiss="modal" type="button">Edit</button>
+				            <button onClick={this.editUser} className="btn btn-primary" data-dismiss="modal" type="button">Save</button>
 				            <a className="btn btn-sm btn-white" data-dismiss="modal" href="javascript:void(0)">Cancel</a>
 				          </div>
 				        </div>

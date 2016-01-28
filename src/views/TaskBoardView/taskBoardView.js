@@ -36,7 +36,6 @@ componentWillUnmount(){
 }
 addTaskItem(board, task){
   let user = this.props.user;
-  console.log(user);
   let params = this.props.projectId.split(':');
   let projectId = params[1];
   let query = 'projects/' + projectId +'/tasks';
@@ -87,7 +86,6 @@ moveItem(item){
   })
 }
 removeItem(item){
-  console.log(item);
   let params = this.props.projectId.split(':');
   let projectId = params[1];
   let query = 'projects/' + projectId +'/tasks/'+ item.key;

@@ -9,6 +9,10 @@ class OverView extends Component{
 
 	render() {
 		let count = this.props.activities.length;
+		let userImg = "";
+		if(this.props.user.avatar){
+			userImg = this.props.user.avatar.split(':');
+		}
 			return (
         	<div>
 					 <div className="page-content container-fluid">
@@ -17,7 +21,7 @@ class OverView extends Component{
 			          <div className="widget widget-shadow text-center">
 			            <div className="widget-header">
 										<br/>
-			              <ProfileWidget avatar={this.props.user.avatar} job={this.props.user.organization} userName={this.props.user.name} bio={this.props.user.bio}/>
+			              <ProfileWidget avatar={userImg[1]} job={this.props.user.organization} userName={this.props.user.name} bio={this.props.user.bio}/>
 			            </div>
 			          </div>
 			        </div>

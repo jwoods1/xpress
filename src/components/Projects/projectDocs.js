@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 class ProjectDocs extends Component {
   render() {
     return(
-      <div className="panel col-md-2" >
+      <div className="panel col-md-3" >
         <figure className="overlay overlay-hover animation-hover">
           <img className="caption-figure img-responsive" src={this.props.url} />
           <figcaption className="overlay-panel overlay-background overlay-fade text-center vertical-align">

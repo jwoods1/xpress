@@ -25,6 +25,7 @@ class Task extends Component {
       super(props);
       this.isChecked = this.isChecked.bind(this);
       this.removeItem = this.removeItem.bind(this);
+
     }
   isChecked(){
     let item = this.props.task;
@@ -35,6 +36,7 @@ class Task extends Component {
     this.props.remove(this.props.task)
   }
   render() {
+    let userImg = this.props.user.avatar.split(':');
     const {connectDragSource, isDragging } = this.props;
     return connectDragSource(
       <li className="list-group-item priority-normal" data-taskboard="slidePanel" data-url="panel.tpl">
@@ -42,11 +44,11 @@ class Task extends Component {
           <label className="task-title">{this.props.label}</label>
         </div>
         <div className="task-badges">
-          <span onClick={this.removeItem} className="task-badge task-badge-subtask icon wb-list-bulleted"></span>
+          <span onClick={this.removeItem} data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom" className="task-badge task-badge-subtask icon wb-close"></span>
         </div>
         <ul className="task-members">
           <li>
-            <img className="avatar avatar-sm" src={this.props.user.avatar}/>
+            <img className="avatar avatar-sm" src={userImg[1]}/>
           </li>
         </ul>
       </li>

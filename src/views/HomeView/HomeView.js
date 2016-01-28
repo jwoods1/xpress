@@ -215,61 +215,55 @@ export class HomeView extends React.Component {
                    </div>
                </div>
                <div className="row">
-                   <div className="col-md-4 portfolio-item">
+                   <div className="col-md-4 portfolio-item text-center">
                        <a href="#">
                            <img className="img-responsive" src="arkansashearing.png" alt=""/>
                        </a>
                        <h3>
-                           <a href="#">Project Name</a>
-                       </h3>
-                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+                          Arkansas Hearing
+                        </h3>
                    </div>
-                   <div className="col-md-4 portfolio-item">
+                   <div className="col-md-4 portfolio-item text-center">
                        <a href="#">
                            <img className="img-responsive" src="dtew-full.png" alt=""/>
                        </a>
                        <h3>
-                           <a href="#">Project Name</a>
-                       </h3>
-                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+                          Dtew Business
+                        </h3>
                    </div>
-                   <div className="col-md-4 portfolio-item">
+                   <div className="col-md-4 portfolio-item text-center">
                        <a href="#">
                            <img className="img-responsive" src="fellberg.png" alt=""/>
                        </a>
                        <h3>
-                           <a href="#">Project Name</a>
-                       </h3>
-                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+                          Fellberg Realtor
+                        </h3>
                    </div>
                </div>
                <div className="row">
-                   <div className="col-md-4 portfolio-item">
+                   <div className="col-md-4 portfolio-item text-center">
                        <a href="#">
                            <img className="img-responsive" src="bhome.png" alt=""/>
                        </a>
                        <h3>
-                           <a href="#">Project Name</a>
+                          Employee web resource
                        </h3>
-                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
                    </div>
-                   <div className="col-md-4 portfolio-item">
+                   <div className="col-md-4 portfolio-item text-center">
                        <a href="#">
                            <img className="img-responsive" src="pequoteyecenter-full.png" alt=""/>
                        </a>
                        <h3>
-                           <a href="#">Project Name</a>
+                         Eye Care Site
                        </h3>
-                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
                    </div>
-                   <div className="col-md-4 portfolio-item">
+                   <div className="col-md-4 portfolio-item text-center">
                        <a href="#">
                            <img className="img-responsive" src="DrPage.png" alt=""/>
                        </a>
                        <h3>
-                           <a href="#">Project Name</a>
+                         Dr. Information
                        </h3>
-                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
                    </div>
                </div>
              </div>
