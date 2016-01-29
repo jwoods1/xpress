@@ -33,6 +33,8 @@ $ npm start                     # Compile and launch
 - Heroku is on a git hook listening on the master branch.
 - Anything pushed to master branch will be pushed to the live heroku account.
 
+### Database
+- We are using Firebase for all the data storage.  The connection information is in /src/redux/utils/firebaseUtil.js
 
 ### Configuration
 
